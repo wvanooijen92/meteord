@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/abernix/meteord/tree/master.svg?style=svg)](https://circleci.com/gh/abernix/meteord/tree/master)
+[![Circle CI](https://circleci.com/gh/abernix/meteord/tree/node-4.6.0.svg?style=svg)](https://circleci.com/gh/abernix/meteord/tree/node-4.6.0)
 
 > ###Use [kadirahq/meteord](https://github.com/kadirahq/meteord) for meteor 1.4 and above. 
 
