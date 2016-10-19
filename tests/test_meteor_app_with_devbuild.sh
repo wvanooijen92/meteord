@@ -1,5 +1,9 @@
 #!/bin/bash
 
+: ${NODE_VERSION?"NODE_VERSION has not been set."}
+
+set -x
+
 function clean() {
   docker rm -f meteor-app
   docker rmi -f meteor-app-image
@@ -11,7 +15,7 @@ clean
 
 meteor create hello
 cd hello
-echo FROM abernix/meteord:devbuild >> Dockerfile
+echo "FROM abernix/meteord:devbuild-node-${NODE_VERSION}" > Dockerfile
 
 docker build -t meteor-app-image ./
 docker run -d \
