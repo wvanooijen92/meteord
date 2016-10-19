@@ -17,6 +17,7 @@ export
 METEOR_WAREHOUSE_URLBASE=https://d3fm2vapipm3k9.cloudfront.net \
   METEOR_LOG=debug \
   meteor build \
+  --unsafe-perm \
   --directory $BUNDLE_DIR \
   --server=http://localhost:3000
 
