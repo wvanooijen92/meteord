@@ -12,11 +12,14 @@ cd $COPIED_APP_PATH
 echo "=> Executing NPM install --production"
 meteor npm install --production
 
+echo "=> This should be for NPM_VERSION ${NPM_VERSION}"
+
 echo "=> Executing Meteor Build..."
 export
 METEOR_WAREHOUSE_URLBASE=https://d3fm2vapipm3k9.cloudfront.net \
   METEOR_LOG=debug \
   meteor build \
+  --release 1.4.2-rc.0 \
   --unsafe-perm \
   --directory $BUNDLE_DIR \
   --server=http://localhost:3000
