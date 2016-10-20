@@ -1,14 +1,15 @@
 #!/bin/sh
 
 set -x
+set -e
 
 clean() {
-  docker rm -f phantomjs_check 2> /dev/null
+  docker rm -f meteord-test-phantomjs_check 2> /dev/null || true
 }
 
 clean
 docker run  \
-    --name phantomjs_check \
+    --name meteord-test-phantomjs_check \
     --entrypoint="/bin/sh" \
     "abernix/meteord:base" -c 'phantomjs -h'
 

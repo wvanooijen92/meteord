@@ -1,25 +1,27 @@
 #!/bin/sh
 
 set -x
+set -e
+
+trap "echo Failed: Bundle local mount" EXIT
 
 clean() {
-  docker rm -f localmount 2> /dev/null
-  rm -rf localmount
+  docker rm -f meteord-test-localmount 2> /dev/null || true
+  rm -rf meteord-test-localmount || true
 }
 
 cd /tmp
 clean
 
-meteor create localmount
-cd localmount
+meteor create meteord-test-localmount
+cd meteord-test-localmount
 meteor build --architecture=os.linux.x86_64 ./
 pwd
-ls -la
 
 docker run -d \
-    --name localmount \
+    --name meteord-test-localmount \
     -e ROOT_URL=http://localmount_app \
-    -v /tmp/localmount:/bundle \
+    -v /tmp/meteord-test-localmount:/bundle \
     -p 9090:80 \
     "abernix/meteord:base"
 

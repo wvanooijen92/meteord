@@ -34,7 +34,6 @@ RUN ["npm", "install", "--global", "phantomjs@1"]
 RUN lib/cleanup.sh
 
 ONBUILD COPY ./ /app
-ONBUILD RUN ls -la lib/
 ONBUILD RUN lib/install_meteor.sh
 ONBUILD RUN lib/build_app.sh
 
