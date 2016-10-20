@@ -13,7 +13,7 @@ clean
 
 meteor create hello
 cd hello
-echo "FROM abernix/meteord:onbuild" > Dockerfile
+echo "FROM abernix/meteord:base" > Dockerfile
 
 docker build -t meteor-app-image ./
 docker run -d \
