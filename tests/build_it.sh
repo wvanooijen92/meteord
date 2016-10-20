@@ -10,5 +10,3 @@ docker build --no-cache --build-arg "NODE_VERSION=${NODE_VERSION}" -t "abernix/m
   docker tag "abernix/meteord:onbuild-node-${NODE_VERSION}" abernix/meteord:onbuild
 docker build --no-cache --build-arg "NODE_VERSION=${NODE_VERSION}" -t "abernix/meteord:devbuild-node-${NODE_VERSION}" ../devbuild && \
   docker tag "abernix/meteord:devbuild-node-${NODE_VERSION}" abernix/meteord:devbuild
-docker build --no-cache --build-arg "NODE_VERSION=${NODE_VERSION}" -t "abernix/meteord:binbuild-node-${NODE_VERSION}" ../binbuild && \
-  docker tag "abernix/meteord:binbuild-node-${NODE_VERSION}" abernix/meteord:binbuild
