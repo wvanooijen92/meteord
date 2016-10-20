@@ -3,7 +3,7 @@
 set -e
 set -x
 
-export NODE_VERSION=${NODE_VERSION:-4.6.1}
+: ${NODE_VERSION?"NODE_VERSION has not been set."}
 
 ./build_it.sh
 
