@@ -1,3 +1,5 @@
+#!/bin/sh
+
 set -e
 
 if [ -d /bundle ]; then
@@ -29,7 +31,7 @@ if [[ $REBUILD_NPM_MODULES ]]; then
   echo "     discourage use of the :bin-build image if possible!  Thanks! -abernix"
   if [ -f /opt/meteord/rebuild_npm_modules.sh ]; then
     cd programs/server
-    bash /opt/meteord/rebuild_npm_modules.sh
+    /opt/meteord/rebuild_npm_modules.sh
     cd ../../
   else
     echo "=> Use abernix/meteord:bin-build for binary bulding."

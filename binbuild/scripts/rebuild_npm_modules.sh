@@ -1,4 +1,7 @@
-set -e 
+#!/bin/sh
+
+set -e
+
 gyp_rebuild_inside_node_modules () {
   for npmModule in ./*; do
     cd $npmModule

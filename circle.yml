@@ -13,4 +13,4 @@ dependencies:
 
 test:
   override:
-    - cd tests && bash run_tests.sh
+    - cd tests && ./run_tests.sh

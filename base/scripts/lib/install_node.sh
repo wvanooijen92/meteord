@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/bin/sh
+
 set -e
+
 if [ -z "$NODE_VERSION" ]; then
   echo "Must set NODE_VERSION with --build-arg NODE_VERSION=x.y.z when building docker image"
   exit 1

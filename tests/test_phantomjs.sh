@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 : ${NODE_VERSION?"NODE_VERSION has not been set."}
 
@@ -11,7 +11,7 @@ function clean() {
 clean
 docker run  \
     --name phantomjs_check \
-    --entrypoint="/bin/bash" \
+    --entrypoint="/bin/sh" \
     "abernix/meteord:base-node-${NODE_VERSION}" -c 'phantomjs -h'
 
 sleep 5

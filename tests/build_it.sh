@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+
 set -x
 
 : ${NODE_VERSION?"NODE_VERSION has not been set."}

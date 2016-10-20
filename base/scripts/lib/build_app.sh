@@ -1,3 +1,5 @@
+#!/bin/sh
+
 set -e
 
 COPIED_APP_PATH=/copied-app

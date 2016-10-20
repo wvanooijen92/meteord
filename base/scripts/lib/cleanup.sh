@@ -1,6 +1,8 @@
+#!/bin/sh
 ## Borrowed from: https://github.com/chriswessels/meteor-tupperware
 
 set -e
+
 # Autoremove any junk
 apt-get autoremove -y
 
