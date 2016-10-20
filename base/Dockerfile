@@ -7,7 +7,6 @@ COPY scripts .
 
 ARG NODE_VERSION
 ENV NODE_VERSION ${NODE_VERSION:-4.6.1}
-ONBUILD ENV NODE_VERSION ${NODE_VERSION:-4.6.1}
 
 ENV NODESOURCE_DEBIAN_DIST jessie
 ENV NODESOURCE_BASEURL https://deb.nodesource.com/node_4.x
@@ -40,4 +39,4 @@ ONBUILD RUN lib/install_meteor.sh
 ONBUILD RUN lib/build_app.sh
 
 EXPOSE 80
-ENTRYPOINT run_app.sh
+ENTRYPOINT ./run_app.sh

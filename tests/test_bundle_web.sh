@@ -19,6 +19,7 @@ docker run -d \
 sleep 50
 
 appContent=`curl http://localhost:9090`
+docker log web
 clean
 
 if test '"'${appContent#*"web_app"}'"' != "$appContent"; then
