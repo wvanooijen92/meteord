@@ -2,7 +2,7 @@
 
 set -x
 
-function clean() {
+clean() {
   docker rm -f phantomjs_check
 }
 

@@ -2,7 +2,7 @@
 
 set -x
 
-function clean() {
+clean() {
   docker rm -f meteor-app
   docker rmi -f meteor-app-image
   rm -rf hello
