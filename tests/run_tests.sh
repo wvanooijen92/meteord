@@ -8,7 +8,6 @@ set -x
 ./build_it.sh
 
 ./test_meteor_app.sh
-./test_meteor_app_with_devbuild.sh
 
 ./test_bundle_local_mount.sh
 
