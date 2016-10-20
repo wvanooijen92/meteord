@@ -27,7 +27,7 @@ sleep 50
 appContent=`curl http://localhost:8080`
 clean
 
-if [[ $appContent != *"yourapp_dot_com"* ]]; then
+if [ test '"'${appContent#*"yourapp_dot_com"}'"' != "$appContent" ]; then
   echo "Failed: Meteor app"
   exit 1
 fi

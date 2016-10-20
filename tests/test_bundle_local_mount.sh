@@ -28,7 +28,7 @@ sleep 50
 appContent=`curl http://localhost:9090`
 clean
 
-if [[ $appContent != *"localmount_app"* ]]; then
+if [ test '"'${appContent#*"localmount_app"}'"' != "$appContent" ]; then
   echo "Failed: Bundle local mount"
   exit 1
 fi

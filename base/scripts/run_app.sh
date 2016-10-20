@@ -8,7 +8,7 @@ if [ -d /bundle ]; then
   cd /bundle/bundle/programs/server/
   npm install --unsafe-perm
   cd /bundle/bundle/
-elif [[ $BUNDLE_URL ]]; then
+elif [ -n $BUNDLE_URL ]; then
   cd /tmp
   curl -L -o bundle.tar.gz $BUNDLE_URL
   tar xzf bundle.tar.gz
@@ -23,7 +23,7 @@ else
 fi
 
 # Set a delay to wait to start meteor container
-if [[ $DELAY ]]; then
+if [ -n "$DELAY" ]; then
   echo "Delaying startup for $DELAY seconds"
   sleep $DELAY
 fi
