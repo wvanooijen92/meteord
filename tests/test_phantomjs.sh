@@ -17,7 +17,7 @@ sleep 5
 appContent=`docker logs phantomjs_check`
 clean
 
-if [ test '"'${appContent#*"GhostDriver"}'"' != "$appContent" ]; then
+if test '"'${appContent#*"GhostDriver"}'"' != "$appContent"; then
   echo "Failed: Phantomjs Check"
   exit 1
 fi

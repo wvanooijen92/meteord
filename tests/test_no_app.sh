@@ -20,7 +20,7 @@ sleep 10
 appContent=`docker logs no_app`
 clean
 
-if [ test '"'${appContent#*"You don't have an meteor app"}'"' != "$appContent" ]; then
+if test '"'${appContent#*"You don't have an meteor app"}'"' != "$appContent"; then
   echo "Failed: To check whether actual meteor bundle exists or not"
   exit 1
 fi
