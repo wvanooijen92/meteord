@@ -16,9 +16,11 @@ meteor npm install --production
 
 echo "=> Executing Meteor Build..."
 export
+
 METEOR_WAREHOUSE_URLBASE=https://d3fm2vapipm3k9.cloudfront.net \
   METEOR_LOG=debug \
   meteor build \
+  --release 1.4.2-rc.1 \
   --unsafe-perm \
   --directory $BUNDLE_DIR \
   --server=http://localhost:3000
