@@ -3,8 +3,8 @@
 set -x
 
 clean() {
-  docker rm -f meteor-app
-  docker rmi -f meteor-app-image
+  docker rm -f meteor-app 2> /dev/null
+  docker rmi -f meteor-app-image 2> /dev/null
   rm -rf hello
 }
 

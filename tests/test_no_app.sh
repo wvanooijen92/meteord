@@ -3,7 +3,7 @@
 set -x
 
 clean() {
-  docker rm -f no_app
+  docker rm -f no_app 2> /dev/null
 }
 
 cd /tmp

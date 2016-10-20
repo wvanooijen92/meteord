@@ -3,7 +3,7 @@
 set -x
 
 clean() {
-  docker rm -f localmount
+  docker rm -f localmount 2> /dev/null
   rm -rf localmount
 }
 

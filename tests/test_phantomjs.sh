@@ -3,7 +3,7 @@
 set -x
 
 clean() {
-  docker rm -f phantomjs_check
+  docker rm -f phantomjs_check 2> /dev/null
 }
 
 clean

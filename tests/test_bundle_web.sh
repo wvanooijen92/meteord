@@ -3,7 +3,7 @@
 set -x
 
 clean() {
-  docker rm -f web
+  docker rm -f web 2> /dev/null
 }
 
 cd /tmp
