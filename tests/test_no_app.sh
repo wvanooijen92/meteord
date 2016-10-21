@@ -1,26 +1,24 @@
 #!/bin/sh
 
+base_app_name="meteord-test-no_app"
+
 set -x
+set -e
+my_dir=`dirname $0`
+. ${my_dir}/lib.sh
 
 clean() {
-  docker rm -f meteord-test-no_app 2> /dev/null || true
+  docker rm -f "${base_app_name}" 2> /dev/null || true
 }
 
 cd /tmp
 clean
 
 docker run -d \
-    --name meteord-test-no_app \
+    --name "${base_app_name}" \
     -e ROOT_URL=http://no_app \
     -p 9090:80 \
     "abernix/meteord:base"
 
-sleep 10
-
-appContent=`docker logs meteord-test-no_app`
+docker_logs_has "${base_app_name}" "You don't have an meteor app"
 clean
-
-if test '"'${appContent#*"You don't have an meteor app"}'"' != "$appContent"; then
-  echo "Failed: To check whether actual meteor bundle exists or not"
-  exit 1
-fi

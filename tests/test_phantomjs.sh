@@ -1,24 +1,23 @@
 #!/bin/sh
 
+base_app_name="meteord-test-phantomjs_check"
+
 set -x
 set -e
+my_dir=`dirname $0`
+. ${my_dir}/lib.sh
 
 clean() {
-  docker rm -f meteord-test-phantomjs_check 2> /dev/null || true
+  docker rm -f "${base_app_name}" 2> /dev/null || true
 }
 
 clean
 docker run  \
-    --name meteord-test-phantomjs_check \
-    --entrypoint="/bin/sh" \
-    "abernix/meteord:base" -c 'phantomjs -h'
+    --name "${base_app_name}" \
+    --entrypoint="phantomjs -h" \
+    "abernix/meteord:base"
 
 sleep 5
 
-appContent=`docker logs phantomjs_check`
+docker_logs_has "${base_app_name}" "GhostDriver"
 clean
-
-if test '"'${appContent#*"GhostDriver"}'"' != "$appContent"; then
-  echo "Failed: Phantomjs Check"
-  exit 1
-fi

@@ -10,6 +10,10 @@ add_server_lookfor () {
 EOM
 }
 
+docker_logs_has () {
+  docker logs "$1" | grep "$2"
+}
+
 watch_docker_logs_for () {
   doalarm ${3:-60} sh -c \
     'docker logs -f "$1" | grep --line-buffered -m1 "$2"'
