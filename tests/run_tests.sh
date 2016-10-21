@@ -1,7 +1,7 @@
 #!/bin/sh
 
-set -e
 set -x
+set -e
 
 : ${NODE_VERSION?"NODE_VERSION has not been set."}
 

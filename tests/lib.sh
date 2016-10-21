@@ -1,12 +1,12 @@
 #!/bin/sh
 
-echo "Testing shit"
-
 doalarm () { perl -e 'alarm shift; exec @ARGV' "$@"; }
 
-add_server_lookfor () {
-  cat <<EOM > server/main.js
-    require('meteor/meteor').Meteor.startup(() => console.log('$look_for'));
+watch_token="=====METEORD_TEST====="
+
+add_watch_token () {
+  cat <<EOM >> $1
+    require('meteor/meteor').Meteor.startup(() => console.log('$watch_token'));
 EOM
 }
 
@@ -17,6 +17,14 @@ docker_logs_has () {
 watch_docker_logs_for () {
   doalarm ${3:-60} sh -c \
     'docker logs -f "$1" | grep --line-buffered -m1 "$2"'
+}
+
+watch_docker_logs_for_app_ready () {
+  watch_docker_logs_for "$1" "=> Starting meteor app on port"
+}
+
+watch_docker_logs_for_token () {
+  watch_docker_logs_for "$1" "${watch_token}"
 }
 
 check_server_for () {

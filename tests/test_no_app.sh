@@ -2,6 +2,8 @@
 
 base_app_name="meteord-test-no_app"
 
+trap "echo Failed: To check whether actual meteor bundle exists or not" EXIT
+
 set -x
 set -e
 my_dir=`dirname $0`
@@ -21,4 +23,6 @@ docker run -d \
     "abernix/meteord:base"
 
 docker_logs_has "${base_app_name}" "You don't have an meteor app"
+
+trap - EXIT
 clean
