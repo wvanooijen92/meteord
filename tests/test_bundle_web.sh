@@ -24,7 +24,7 @@ docker run -d \
     -p 9090:80 \
     "abernix/meteord:base"
 
-watch_docker_logs_for_app_ready
+watch_docker_logs_for_token "${base_app_name}" || true
 sleep 1
 
 check_server_for "9090" "${test_root_url_hostname}" || true
