@@ -5,17 +5,24 @@ set -e
 COPIED_APP_PATH=/copied-app
 BUNDLE_DIR=/tmp/bundle-dir
 
+echo "=> Current environment"
+export
+
+echo "=> System Meteor Version"
+meteor version --
+
 # sometimes, directly copied folder cause some wierd issues
 # this fixes that
 echo "=> Copying the app"
 cp -R /app $COPIED_APP_PATH
 cd $COPIED_APP_PATH
 
+echo "=> App Meteor Version"
+
 echo "=> Executing NPM install --production"
 meteor npm install --production
 
 echo "=> Executing Meteor Build..."
-export
 
 METEOR_WAREHOUSE_URLBASE=https://d3fm2vapipm3k9.cloudfront.net \
   METEOR_LOG=debug \

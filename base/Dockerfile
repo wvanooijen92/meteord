@@ -7,6 +7,7 @@ COPY scripts .
 
 ARG NODE_VERSION
 ENV NODE_VERSION ${NODE_VERSION:-4.6.1}
+ENV JESSE1=true
 
 ENV NODESOURCE_DEBIAN_DIST jessie
 ENV NODESOURCE_BASEURL https://deb.nodesource.com/node_4.x
@@ -33,6 +34,7 @@ RUN ["npm", "install", "--global", "phantomjs@1"]
 
 RUN lib/cleanup.sh
 
+ONBUILD ENV BUILDJESSE1=true
 ONBUILD COPY ./ /app
 ONBUILD RUN lib/install_meteor.sh
 ONBUILD RUN lib/build_app.sh
