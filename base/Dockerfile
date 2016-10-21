@@ -22,7 +22,7 @@ RUN apt-get update && apt-get -f install -y && apt-get install -y \
     bzip2 \
     build-essential \
     curl \
-    libfreetype6 \
+    fontconfig \
     libfreetype6-dev \
     libssl-dev \
     g++ \
