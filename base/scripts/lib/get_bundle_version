@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+/*
+  This program will get the Meteor release vesion out of the bundle
+  and return it so something can be done with it
+*/
+
+var configPath = "./programs/server/config.json";
+var resolvedPath = require("path").resolve(configPath);
+
+if (require("fs").existsSync(resolvedPath)) {
+  // Load the config.json
+  var config = require(resolvedPath);
+
+  // If it's a true Meteor Release (i.e. METEOR@), return the number.
+  if (config && config.meteorRelease) {
+    var version = /^METEOR@(.*)/.exec(config.meteorRelease);
+    if (version) {
+      console.log(version[1]);
+      process.exit(0);
+    }
+  };
+}
+
+process.exit(1)
