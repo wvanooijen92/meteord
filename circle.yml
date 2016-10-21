@@ -15,7 +15,7 @@ dependencies:
 
 test:
   override:
-    - /bin/sh
+    - /bin/sh:
       parallel: true
       files:
         # These are taken directly from tests/run_tests.sh
