@@ -21,10 +21,9 @@ clean
 
 meteor create "${base_app_name}"
 cd "${base_app_name}"
+add_watch_token "server/main.js"
 
 echo "FROM abernix/meteord:base" > Dockerfile
-
-add_watch_token "server/main.js"
 
 test_root_url_hostname="yourapp_dot_com"
 
