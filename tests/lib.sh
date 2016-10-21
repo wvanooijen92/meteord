@@ -11,7 +11,7 @@ EOM
 }
 
 watch_docker_logs_for () {
-  doalarm 5 sh -c \
+  doalarm ${3:-60} sh -c \
     'docker logs -f "$1" | grep --line-buffered -m1 "$2"'
 }
 
