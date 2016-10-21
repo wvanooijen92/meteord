@@ -16,10 +16,10 @@ dependencies:
 test:
   override:
     - sh:
-      parallel: true
-      files:
-        - tests/test_meteor_app.sh
-        - tests/test_bundle_local_mount.sh
-        - tests/test_bundle_web.sh
-        - tests/test_phantomjs.sh
-        - tests/test_no_app.sh
+        parallel: true
+        files:
+          - tests/test_meteor_app.sh
+          - tests/test_bundle_local_mount.sh
+          - tests/test_bundle_web.sh
+          - tests/test_phantomjs.sh
+          - tests/test_no_app.sh
