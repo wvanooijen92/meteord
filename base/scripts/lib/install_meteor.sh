@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+my_dir=`dirname $0`
 export
 
 if [ -d "$HOME/.meteor" ]; then

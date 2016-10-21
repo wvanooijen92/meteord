@@ -2,6 +2,7 @@
 
 set -e # Exit on any bad exit status
 set -x # Print each command
+my_dir=`dirname $0`
 
 # Shouldn't matter, but just in case.
 export METEOR_NO_RELEASE_CHECK=1
@@ -36,9 +37,13 @@ cver () {
   -e 'printf "%04s%04s%04s%04s", @ver;'
 }
 
+echo "=> Bundle Version"
+BUNDLE_METEOR_VERSION=$my_dir/get_bundle_version
+
 echo "=> App Meteor Version"
 METEOR_VERSION_APP=$(get_meteor_version)
-if [ $(cver "$MET_OUTPUT") -ge $(cver "1.4.2") ]; then
+echo "  > $METEOR_VERSION_APP"
+if [ $(cver "$METEOR_VERSION_APP") -ge $(cver "1.4.2") ]; then
   UNSAFE_PERM_FLAG="--unsafe-perm"
 else
   UNSAFE_PERM_FLAG=""
