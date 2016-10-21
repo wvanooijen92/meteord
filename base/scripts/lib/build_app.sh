@@ -1,7 +1,14 @@
 #!/bin/sh
 
-set -e
-set -x
+set -e # Exit on any bad exit status
+set -x # Print each command
+
+# Shouldn't matter, but just in case.
+export METEOR_NO_RELEASE_CHECK=1
+
+# Because of CDN issues.
+: ${METEOR_WAREHOUSE_URLBASE:="https://d3fm2vapipm3k9.cloudfront.net"}
+export METEOR_WAREHOUSE_URLBASE
 
 COPIED_APP_PATH=/copied-app
 BUNDLE_DIR=/tmp/bundle-dir
@@ -17,7 +24,7 @@ echo "=> System Meteor Version"
 METEOR_VERSION_SYSTEM=$(get_meteor_version)
 echo "  > $METEOR_VERSION_SYSTEM"
 
-# sometimes, directly copied folder cause some wierd issues
+# sometimes, directly copied folder cause some weird issues
 # this fixes that
 echo "=> Copying the app"
 cp -R /app $COPIED_APP_PATH
@@ -42,8 +49,7 @@ meteor npm install --production
 
 echo "=> Executing Meteor Build..."
 
-METEOR_WAREHOUSE_URLBASE=https://d3fm2vapipm3k9.cloudfront.net \
-  METEOR_LOG=debug \
+METEOR_LOG=debug \
   meteor build \
   ${UNSAFE_PERM_FLAG} \
   --directory $BUNDLE_DIR \
