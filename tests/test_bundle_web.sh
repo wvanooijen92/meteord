@@ -17,10 +17,12 @@ clean
 
 test_root_url_hostname="web_app"
 
+BUNDLE_URL=https://abernix-meteord-tests.s3-us-west-2.amazonaws.com/meteor-1.4.1.2.tar.gz
+
 docker run -d \
     --name "${base_app_name}" \
     -e ROOT_URL=http://$test_root_url_hostname \
-    -e BUNDLE_URL=https://abernix-meteord-tests.s3-us-west-2.amazonaws.com/meteord-test-bundle.tar.gz \
+    -e BUNDLE_URL \
     -p 9090:80 \
     "abernix/meteord:base"
 
