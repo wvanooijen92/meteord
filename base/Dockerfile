@@ -22,14 +22,13 @@ RUN apt-get update && apt-get -f install -y && apt-get install -y \
     bzip2 \
     build-essential \
     curl \
-    libssl-dev \
     libfreetype6 \
+    libfreetype6-dev \
+    libssl-dev \
     g++ \
     git \
     python \
   && rm -rf /var/lib/apt/lists/*
-
-# libfreetype6-dev fontconfig
 
 RUN ["npm", "install", "--global", "npm@3"]
 RUN ["npm", "install", "--global", "node-gyp"]

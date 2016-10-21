@@ -1,17 +1,16 @@
 #!/bin/sh
-
-base_app_name="meteord-test-no_app"
-
-trap "echo Failed: To check whether actual meteor bundle exists or not" EXIT
-
 set -x
 set -e
 my_dir=`dirname $0`
 . ${my_dir}/lib.sh
 
+base_app_name="meteord-test-no_app"
+
 clean() {
   docker rm -f "${base_app_name}" 2> /dev/null || true
 }
+
+trap "echo Failed: To check whether actual meteor bundle exists or not" EXIT
 
 cd /tmp
 clean
