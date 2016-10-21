@@ -25,15 +25,17 @@ cat <<EOM > server/main.js
 require('meteor/meteor').Meteor.startup(() => console.log('$look_for'));
 EOM
 
+test_root_url_hostname=yourapp_dot_com
+
 docker build -t meteor-app-image ./
 docker run -d \
     --name meteor-app \
-    -e ROOT_URL=http://yourapp_dot_com \
+    -e ROOT_URL=http://$test_root_url_hostname \
     -p 8080:80 \
     meteor-app-image
 
-sh -c 'docker logs -f meteor-app | grep --line-buffered -m1 "${look_for}"' || true
-sleep 5
-curl -s http://localhost:8080 2>&1 > /dev/null
+doalarm 5 sh -c 'docker logs -f meteor-app | grep --line-buffered -m1 "${look_for}"' || true
+sleep 1
+curl -s http://localhost:8080 | grep ${test_root_url_hostname} 2>&1 > /dev/null
 clean
 trap - EXIT
