@@ -9,7 +9,7 @@ echo "=> Current environment"
 export
 
 echo "=> System Meteor Version"
-meteor version --
+meteor --version
 
 # sometimes, directly copied folder cause some wierd issues
 # this fixes that
@@ -18,6 +18,7 @@ cp -R /app $COPIED_APP_PATH
 cd $COPIED_APP_PATH
 
 echo "=> App Meteor Version"
+meteor --version
 
 echo "=> Executing NPM install --production"
 meteor npm install --production
