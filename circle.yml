@@ -15,4 +15,13 @@ dependencies:
 
 test:
   override:
-    - cd tests && ./run_tests.sh
+    - /bin/sh
+    parallel: true
+    files:
+      # These are taken directly from tests/run_tests.sh
+      # but provide parallelism.
+      - tests/test_meteor_app.sh
+      - tests/test_bundle_local_mount.sh
+      - tests/test_bundle_web.sh # This uses the BUNDLE_URL arg
+      - tests/test_phantomjs.sh
+      - tests/test_no_app.sh
