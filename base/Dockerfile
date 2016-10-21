@@ -3,6 +3,7 @@ MAINTAINER Jesse Rosenberger
 
 WORKDIR /opt/meteord
 ONBUILD WORKDIR /opt/meteord
+ADD apt-sources.list /etc/apt/sources.list
 COPY scripts .
 
 ARG NODE_VERSION
