@@ -16,14 +16,6 @@ BUNDLE_DIR=/tmp/bundle-dir
 echo "=> Current environment"
 export
 
-get_meteor_version() {
-  echo $(meteor --version | tr -d '\r')
-}
-
-echo "=> System Meteor Version"
-METEOR_VERSION_SYSTEM=$(get_meteor_version)
-echo "  > $METEOR_VERSION_SYSTEM"
-
 # sometimes, directly copied folder cause some weird issues
 # this fixes that
 echo "=> Copying the app"
@@ -34,12 +26,23 @@ ls -la
 
 cver () {
   echo $1 | perl -n \
-  -e '@ver = /([0-9]+)\.([0-9]+)(?:\.([0-9]+))?(?:\.([0-9]+))?/;' \
+  -e '@ver = /^(?:[^\@]+\@)?([0-9]+)\.([0-9]+)(?:\.([0-9]+))?(?:\.([0-9]+))?/;' \
   -e 'printf "%04s%04s%04s%04s", @ver;'
 }
 
+if ! [ -d ".meteor" ]; then
+  echo "*** There is no '.meteor' directory in this project!"
+  exit 1
+fi
+
+if ! [ -f ".meteor/release" ]; then
+  echo "There is no .meteor/release file on this project."
+  echo "Make sure the project is configured properly."
+  exit 1
+fi
+
 echo "=> App Meteor Version"
-METEOR_VERSION_APP=$(get_meteor_version)
+METEOR_VERSION_APP=$(cat .meteor/release)
 echo "  > $METEOR_VERSION_APP"
 if [ $(cver "$METEOR_VERSION_APP") -ge $(cver "1.4.2") ]; then
   UNSAFE_PERM_FLAG="--unsafe-perm"
