@@ -21,4 +21,6 @@ if (require("fs").existsSync(resolvedPath)) {
   };
 }
 
+console.log("Unable to find the Meteor version from the bundle.");
+console.log("Be sure to run this script from within a Meteor bundle!");
 process.exit(1)

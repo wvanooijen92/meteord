@@ -1,6 +1,8 @@
 #!/bin/sh
 
 set -e
+my_dir=`dirname $0`
+path=`pwd`
 
 if [ -d /bundle ]; then
   cd /bundle
@@ -21,6 +23,18 @@ else
   echo "=> You don't have an meteor app to run in this image."
   exit 1
 fi
+
+echo "=> Bundle Version"
+BUNDLE_METEOR_VERSION="$(node ${path}/${my_dir}/lib/get_bundle_version)"
+echo " > ${BUNDLE_METEOR_VERSION}"
+
+echo "=> Proper Node Version"
+PROPER_NODE_VERSION="$(node ${path}/${my_dir}/lib/meteor_to_node_version)"
+echo " > ${PROPER_NODE_VERSION}"
+
+echo "=> Actual Node Version"
+ACTUAL_NODE_VERSION="$(node --version | sed 's/^v//')"
+echo " > ${ACTUAL_NODE_VERSION}"
 
 # Set a delay to wait to start meteor container
 if [ -n "$DELAY" ]; then

@@ -2,7 +2,6 @@
 
 set -e # Exit on any bad exit status
 set -x # Print each command
-my_dir=`dirname $0`
 
 # Shouldn't matter, but just in case.
 export METEOR_NO_RELEASE_CHECK=1
@@ -31,14 +30,13 @@ echo "=> Copying the app"
 cp -R /app $COPIED_APP_PATH
 cd $COPIED_APP_PATH
 
+ls -la
+
 cver () {
   echo $1 | perl -n \
   -e '@ver = /([0-9]+)\.([0-9]+)(?:\.([0-9]+))?(?:\.([0-9]+))?/;' \
   -e 'printf "%04s%04s%04s%04s", @ver;'
 }
-
-echo "=> Bundle Version"
-BUNDLE_METEOR_VERSION=$my_dir/get_bundle_version
 
 echo "=> App Meteor Version"
 METEOR_VERSION_APP=$(get_meteor_version)
