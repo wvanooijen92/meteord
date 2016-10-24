@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+var meteorVersion = process.argv[2];
+
+if (! meteorVersion) {
+  console.log("Pass a Meteor version to get the compatible Node version, if known.")
+  process.exit(1);
+}
+
+var mapPath = require("path").join(__dirname, "version-map.json");
+
+if (require("fs").existsSync(mapPath)) {
+  // Load the config.json
+  var versionMap = require(mapPath);
+
+  if (versionMap && versionMap[meteorVersion]) {
+    console.log(versionMap[meteorVersion]);
+    process.exit(0);
+  }
+}
+
+console.log("Not sure which Node is compatible with Meteor %s!", meteorVersion);
+console.log("It's possible that this is a new (or very old) version of Meteor.");
+console.log("If you need support for this version, open an issue here:");
+console.log();
+console.log("  https://github.com/abernix/meteord/issues");
+process.exit(1)

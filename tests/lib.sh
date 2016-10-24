@@ -7,10 +7,15 @@ watch_token="=====METEORD_TEST====="
 add_binary_dependency () {
   meteor add npm-bcrypt
   meteor npm install bcrypt --save
+  cat <<EOM >> ${1:-"server/main.js"}
+    require('meteor/meteor').Meteor.startup(() => {
+      console.log('bcrypt', require('bcrypt').hashSync("asdf", 10));
+    });
+EOM
 }
 
 add_watch_token () {
-  cat <<EOM >> $1
+  cat <<EOM >> ${1:-"server/main.js"}
     require('meteor/meteor').Meteor.startup(() => console.log('$watch_token'));
 EOM
 }
