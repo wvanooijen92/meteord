@@ -10,7 +10,9 @@ root_dir="$my_dir/.."
 
 ${root_dir}/build_it.sh
 
-${my_dir}/test_meteor_app.sh
+for meteor_version in `cat ${my_dir}/meteor_versions_to_test`; do
+  ${my_dir}/test_meteor_app.sh "${meteor_version}"
+done
 
 ${my_dir}/test_bundle_local_mount.sh
 

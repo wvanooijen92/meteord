@@ -19,8 +19,16 @@ base_app_image_name="${base_app_name}-image"
 cd /tmp
 clean
 
-meteor create "${base_app_name}"
+if ! [ -z "$1" ] && [ -n "$1" ]; then
+  echo "Testing Meteor $1"
+  release_argument="--release $1"
+else
+  release_argument=""
+fi
+
+meteor create ${release_argument} "${base_app_name}"
 cd "${base_app_name}"
+add_binary_dependency
 add_watch_token "server/main.js"
 
 echo "FROM abernix/meteord:base" > Dockerfile

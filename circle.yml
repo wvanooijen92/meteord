@@ -30,3 +30,5 @@ test:
           - tests/test_bundle_web.sh  # This uses BUNDLE_URL
           - tests/test_phantomjs.sh
           - tests/test_no_app.sh
+    - sh tests/run_circleci_version_tests.sh:
+        parallel: true
