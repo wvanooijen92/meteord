@@ -44,6 +44,7 @@ docker run -d \
 
 watch_docker_logs_for_token "${base_app_name}" || true
 sleep 1
+docker logs "${base_app_name}"
 
 check_server_for "8080" "${test_root_url_hostname}" || true
 
