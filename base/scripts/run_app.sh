@@ -8,12 +8,12 @@ path=`pwd`
 if [ -d /bundle ]; then
   cd /bundle
   tar xzf *.tar.gz
-  cd /bundle/bundle/
+  cd bundle/
 elif [ -n "$BUNDLE_URL" ]; then
   cd /tmp
   curl -L -o bundle.tar.gz $BUNDLE_URL
   tar xzf bundle.tar.gz
-  cd /tmp/bundle/
+  cd bundle/
 elif [ -d /built_app ]; then
   cd /built_app
 else
