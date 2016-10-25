@@ -35,7 +35,8 @@ fi
 our_workload=$(echo "${our_normal_scripts} ${our_version_scripts}" |\
   awk "NR % ${CIRCLE_NODE_TOTAL} == ${CIRCLE_NODE_INDEX}")
 
-IFS=$'\n'
-for test_script in $our_workload; do
+IFS="
+"
+for test_script in "$our_workload"; do
   sh -c "${test_script}"
 done
