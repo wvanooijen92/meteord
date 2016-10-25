@@ -37,5 +37,5 @@ our_workload=$(echo "${our_normal_scripts} ${our_version_scripts}" |\
 
 IFS=$'\n'
 for test_script in $our_workload; do
-  sh ${test_script}
+  sh -c "${test_script}"
 done
