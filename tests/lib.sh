@@ -9,19 +9,23 @@ add_binary_dependency () {
   meteor npm install bcrypt --save
   cat <<EOM >> ${1:-"server/main.js"}
     require('meteor/meteor').Meteor.startup(() => {
-      console.log('bcrypt', require('bcrypt').hashSync("asdf", 10));
+      console.log('bcrypt:::' + require('bcrypt').hashSync("asdf", 10) + ':::');
     });
 EOM
 }
 
 add_watch_token () {
-  cat <<EOM >> ${1:-"server/main.js"}
+  cat <<EOM >> ${1:-"server/__11_first.js"}
     require('meteor/meteor').Meteor.startup(() => console.log('$watch_token'));
 EOM
 }
 
 docker_logs_has () {
   docker logs "$1" | grep "$2"
+}
+
+docker_logs_has_bcrypt_token () {
+  docker logs "$1" | grep -E '^bcrypt:::\$2[ay]?\$[0-9]{1,2}\$[^\$]{53}:::$'
 }
 
 watch_docker_logs_for () {

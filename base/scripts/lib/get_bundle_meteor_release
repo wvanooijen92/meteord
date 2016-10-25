@@ -11,16 +11,13 @@ if (require("fs").existsSync(resolvedPath)) {
   // Load the config.json
   var config = require(resolvedPath);
 
-  // If it's a true Meteor Release (i.e. METEOR@), return the number.
+  // If it's a true Meteor Release (i.e. METEOR@), return it.
   if (config && config.meteorRelease) {
-    var version = /^METEOR@(.*)/.exec(config.meteorRelease);
-    if (version) {
-      console.log(version[1]);
-      process.exit(0);
-    }
+    console.log(config.meteorRelease);
+    process.exit(0);
   };
 }
 
-console.log("Unable to find the Meteor version from the bundle.");
+console.log("Unable to find the Meteor release from the bundle.");
 console.log("Be sure to run this script from within a Meteor bundle!");
 process.exit(1)

@@ -18,7 +18,6 @@ clean
 docker run -d \
     --name "${base_app_name}" \
     -e ROOT_URL=http://no_app \
-    -p 9090:80 \
     "abernix/meteord:base"
 
 docker_logs_has "${base_app_name}" "You don't have an meteor app"

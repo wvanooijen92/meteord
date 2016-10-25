@@ -23,13 +23,13 @@ docker run -d \
     --name "${base_app_name}" \
     -e ROOT_URL=http://$test_root_url_hostname \
     -e BUNDLE_URL \
-    -p 9090:80 \
+    -p 63836:80 \
     "abernix/meteord:base"
 
 watch_docker_logs_for_token "${base_app_name}" || true
 sleep 1
 
-check_server_for "9090" "${test_root_url_hostname}" || true
+check_server_for "63836" "${test_root_url_hostname}" || true
 
 trap - EXIT
 clean

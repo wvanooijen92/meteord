@@ -61,25 +61,24 @@ METEOR_LOG=debug \
   --directory $BUNDLE_DIR \
   --server=http://localhost:3000
 
-echo "=> Printing Meteor Node information..."
-echo "  => platform"
-meteor node -p process.platform
-echo "  => arch"
-meteor node -p process.arch
-echo "  => versions"
-meteor node -p process.versions
+# echo "=> Printing Meteor Node information..."
+# echo "  => platform"
+# meteor node -p process.platform
+# echo "  => arch"
+# meteor node -p process.arch
+# echo "  => versions"
+# meteor node -p process.versions
 
-echo "=> Printing System Node information..."
-echo "  => platform"
-node -p process.platform
-echo "  => arch"
-node -p process.arch
-echo "  => versions"
-node -p process.versions
+# echo "=> Printing System Node information..."
+# echo "  => platform"
+# node -p process.platform
+# echo "  => arch"
+# node -p process.arch
+# echo "  => versions"
+# node -p process.versions
 
 echo "=> Executing NPM install within Bundle"
-cd $BUNDLE_DIR/bundle/programs/server/
-npm i
+(cd $BUNDLE_DIR/bundle/programs/server/ && npm install --unsafe-perm)
 
 echo "=> Moving bundle"
 mv $BUNDLE_DIR/bundle /built_app

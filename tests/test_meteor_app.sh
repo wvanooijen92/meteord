@@ -28,8 +28,8 @@ fi
 
 meteor create ${release_argument} "${base_app_name}"
 cd "${base_app_name}"
+add_watch_token
 add_binary_dependency
-add_watch_token "server/main.js"
 
 echo "FROM abernix/meteord:base" > Dockerfile
 
@@ -39,14 +39,18 @@ docker build -t "${base_app_image_name}" ./
 docker run -d \
     --name "${base_app_name}" \
     -e ROOT_URL=http://$test_root_url_hostname \
-    -p 8080:80 \
+    -p 63836:80 \
     "${base_app_image_name}"
 
 watch_docker_logs_for_token "${base_app_name}" || true
 sleep 1
 docker logs "${base_app_name}"
 
-check_server_for "8080" "${test_root_url_hostname}" || true
+! docker_logs_has "${base_app_name}" "you are using a pure-JavaScript"
+
+docker_logs_has_bcrypt_token "${base_app_name}"
+
+check_server_for "63836" "${test_root_url_hostname}" || true
 
 trap - EXIT
-clean
+# clean
