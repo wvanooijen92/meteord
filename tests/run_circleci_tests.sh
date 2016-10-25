@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# set -x
+set -x
 set -e
 
 : ${NODE_VERSION?"NODE_VERSION has not been set."}
@@ -14,12 +14,12 @@ if [ -z "${CIRCLE_NODE_TOTAL}" ] || [ -z "${CIRCLE_NODE_INDEX}" ]; then
 fi
 
 our_normal_scripts="
-  ${my_dir}/test_meteor_app.sh
-  ${my_dir}/test_meteor_versions.sh
-  ${my_dir}/test_bundle_local_mount.sh
-  ${my_dir}/test_bundle_web.sh
-  ${my_dir}/test_phantomjs.sh
-  ${my_dir}/test_no_app.sh
+${my_dir}/test_meteor_app.sh
+${my_dir}/test_meteor_versions.sh
+${my_dir}/test_bundle_local_mount.sh
+${my_dir}/test_bundle_web.sh
+${my_dir}/test_phantomjs.sh
+${my_dir}/test_no_app.sh
 "
 
 our_version_scripts=$(
@@ -37,5 +37,5 @@ our_workload=$(echo "${our_normal_scripts} ${our_version_scripts}" |\
 
 IFS=$'\n'
 for test_script in $our_workload; do
-  echo ${test_script}
+  sh ${test_script}
 done
