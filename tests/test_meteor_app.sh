@@ -53,4 +53,4 @@ docker_logs_has_bcrypt_token "${base_app_name}"
 check_server_for "63836" "${test_root_url_hostname}" || true
 
 trap - EXIT
-# clean
+clean
