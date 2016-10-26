@@ -41,10 +41,10 @@ if ! [ -f ".meteor/release" ]; then
   exit 1
 fi
 
-# # First, try to get the Meteor version from the .meteor/release file in the app.
-# if [ -z "$METEOR_RELEASE" ]; then
-#   METEOR_RELEASE="$(grep "^METEOR@" .meteor/release | sed 's/^METEOR@//;')"
-# fi
+# First, try to get the Meteor version from the .meteor/release file in the app.
+if [ -z "$METEOR_RELEASE" ]; then
+  METEOR_RELEASE="$(grep "^METEOR@" .meteor/release | sed 's/^METEOR@//;')"
+fi
 
 # Check to make sure it's not a generally unpublished version, like beta or RC.
 # These aren't generally available as direct bootstrap downloads.
@@ -99,10 +99,6 @@ fi
 echo "=> App Meteor Version"
 meteor_version_app=$(cat .meteor/release)
 echo "  > ${meteor_version_app}"
-if [ $(cver "${meteor_version_app}") -ge $(cver "1.4.2") ]; then
-  # If the primary release requires the --unsafe-perm flag, let's pass it.
-  unsafe_perm_flag="--unsafe-perm"
-fi
 
 echo "=> Executing NPM install --production"
 meteor npm install --production 2>&1 > /dev/null
