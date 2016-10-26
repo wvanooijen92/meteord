@@ -1,5 +1,4 @@
 #!/bin/sh
-set -x
 set -e
 my_dir=`dirname $0`
 . ${my_dir}/lib.sh
