@@ -41,10 +41,10 @@ if ! [ -f ".meteor/release" ]; then
   exit 1
 fi
 
-# # First, try to get the Meteor version from the .meteor/release file in the app.
-# if [ -z "$METEOR_RELEASE" ]; then
-#   METEOR_RELEASE="$(grep "^METEOR@" .meteor/release | sed 's/^METEOR@//;')"
-# fi
+# First, try to get the Meteor version from the .meteor/release file in the app.
+if [ -z "$METEOR_RELEASE" ]; then
+  METEOR_RELEASE="$(grep "^METEOR@" .meteor/release | sed 's/^METEOR@//;')"
+fi
 
 # Check to make sure it's not a generally unpublished version, like beta or RC.
 # These aren't generally available as direct bootstrap downloads.
