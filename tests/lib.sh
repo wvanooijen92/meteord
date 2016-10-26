@@ -4,6 +4,12 @@ doalarm () { perl -e 'alarm shift; exec @ARGV' "$@"; }
 
 watch_token="=====METEORD_TEST====="
 
+cver () {
+  echo $1 | perl -n \
+  -e '@ver = /^(?:[^\@]+\@)?([0-9]+)\.([0-9]+)(?:\.([0-9]+))?(?:\.([0-9]+))?/;' \
+  -e 'printf "%04s%04s%04s%04s", @ver;'
+}
+
 add_binary_dependency () {
   meteor add npm-bcrypt
   meteor npm install bcrypt --save
