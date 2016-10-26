@@ -84,6 +84,7 @@ else
 
 fi
 
+unsafe_perm_flag=""
 if [ $(cver "${METEOR_RELEASE}") -ge $(cver "1.4.2") ]; then
   # If the primary release requires the --unsafe-perm flag, let's pass it.
   unsafe_perm_flag="--unsafe-perm"
@@ -93,20 +94,23 @@ if [ $(cver "${METEOR_RELEASE}") -ge $(cver "1.4.2") ]; then
     -e 's/(^\h+var newArgv.*?$)/$1\n\n  newArgv = _.filter(newArgv, function (arg) { return arg !== "--unsafe-perm"; });/ms' \
     $HOME/.meteor/$METEOR_TOOL_DIRECTORY/tools/cli/main.js
   echo "...done"
-else
-  unsafe_perm_flag=""
 fi
 
 echo "=> App Meteor Version"
 meteor_version_app=$(cat .meteor/release)
-echo "  > $meteor_version_app"
+echo "  > ${meteor_version_app}"
+if [ $(cver "${meteor_version_app}") -ge $(cver "1.4.2") ]; then
+  # If the primary release requires the --unsafe-perm flag, let's pass it.
+  unsafe_perm_flag="--unsafe-perm"
+fi
 
 echo "=> Executing NPM install --production"
 meteor npm install --production 2>&1 > /dev/null
 
 echo "=> Executing Meteor Build..."
 
-meteor build \
+METEOR_DEBUG_SPRINGBOARD=t \
+  meteor build \
   ${unsafe_perm_flag} \
   --directory $bundle_dir \
   --server=http://localhost:3000
