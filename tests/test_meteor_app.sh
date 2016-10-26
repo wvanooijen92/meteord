@@ -21,8 +21,14 @@ clean
 if ! [ -z "$1" ] && [ -n "$1" ]; then
   echo "Testing Meteor $1"
   release_argument="--release $1"
+  if [ $(cver "$1") -ge $(cver "1.4.2") ]; then
+    unsafe_perm_flag="--unsafe-perm"
+  else
+    unsafe_perm_flag=""
+  fi
 else
   release_argument=""
+  unsafe_perm_flag="--unsafe-perm"
 fi
 
 meteor create ${release_argument} "${base_app_name}" 2>&1 > /dev/null
