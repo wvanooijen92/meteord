@@ -10,8 +10,8 @@ export METEOR_NO_RELEASE_CHECK=1
 : ${METEOR_WAREHOUSE_URLBASE:="https://d3fm2vapipm3k9.cloudfront.net"}
 export METEOR_WAREHOUSE_URLBASE
 
-COPIED_APP_PATH=/copied-app
-BUNDLE_DIR=/tmp/bundle-dir
+copied_app_path=/copied-app
+bundle_dir=/tmp/bundle-dir
 
 echo "=> Current environment"
 export
@@ -19,8 +19,8 @@ export
 # sometimes, directly copied folder cause some weird issues
 # this fixes that
 echo "=> Copying the app"
-cp -R /app $COPIED_APP_PATH
-cd $COPIED_APP_PATH
+cp -R /app $copied_app_path
+cd $copied_app_path
 
 ls -la
 
@@ -42,12 +42,12 @@ if ! [ -f ".meteor/release" ]; then
 fi
 
 echo "=> App Meteor Version"
-METEOR_VERSION_APP=$(cat .meteor/release)
-echo "  > $METEOR_VERSION_APP"
-if [ $(cver "$METEOR_VERSION_APP") -ge $(cver "1.4.2") ]; then
-  UNSAFE_PERM_FLAG="--unsafe-perm"
+meteor_version_app=$(cat .meteor/release)
+echo "  > $meteor_version_app"
+if [ $(cver "$meteor_version_app") -ge $(cver "1.4.2") ]; then
+  unsafe_perm_flag="--unsafe-perm"
 else
-  UNSAFE_PERM_FLAG=""
+  unsafe_perm_flag=""
 fi
 
 echo "=> Executing NPM install --production"
@@ -57,8 +57,8 @@ echo "=> Executing Meteor Build..."
 
 METEOR_LOG=debug \
   meteor build \
-  ${UNSAFE_PERM_FLAG} \
-  --directory $BUNDLE_DIR \
+  ${unsafe_perm_flag} \
+  --directory $bundle_dir \
   --server=http://localhost:3000
 
 # echo "=> Printing Meteor Node information..."
@@ -78,17 +78,17 @@ METEOR_LOG=debug \
 # node -p process.versions
 
 echo "=> Executing NPM install within Bundle"
-(cd $BUNDLE_DIR/bundle/programs/server/ && npm install --unsafe-perm)
+(cd ${bundle_dir}/bundle/programs/server/ && npm install --unsafe-perm)
 
 echo "=> Moving bundle"
-mv $BUNDLE_DIR/bundle /built_app
+mv ${bundle_dir}/bundle /built_app
 
 echo "=> Cleaning up"
 # cleanup
-echo " => COPIED_APP_PATH"
-rm -rf $COPIED_APP_PATH
-echo " => BUNDLE_DIR"
-rm -rf $BUNDLE_DIR
+echo " => copied_app_path"
+rm -rf $copied_app_path
+echo " => bundle_dir"
+rm -rf ${bundle_dir}
 echo " => .meteor"
 rm -rf ~/.meteor
 rm /usr/local/bin/meteor
