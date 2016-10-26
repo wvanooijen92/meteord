@@ -39,7 +39,6 @@ RUN lib/cleanup.sh
 
 ONBUILD ENV BUILDJESSE1=true
 ONBUILD COPY ./ /app
-ONBUILD RUN lib/install_meteor.sh
 ONBUILD RUN lib/build_app.sh
 
 EXPOSE 80

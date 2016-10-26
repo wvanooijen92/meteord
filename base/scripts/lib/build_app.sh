@@ -2,6 +2,7 @@
 
 set -e # Exit on any bad exit status
 set -x # Print each command
+my_dir=`dirname $0`
 
 # Shouldn't matter, but just in case.
 export METEOR_NO_RELEASE_CHECK=1
@@ -22,8 +23,7 @@ echo "=> Copying the app"
 cp -R /app $copied_app_path
 cd $copied_app_path
 
-ls -la
-
+# Function which makes a Meteor version number comparable.
 cver () {
   echo $1 | perl -n \
   -e '@ver = /^(?:[^\@]+\@)?([0-9]+)\.([0-9]+)(?:\.([0-9]+))?(?:\.([0-9]+))?/;' \
@@ -41,41 +41,75 @@ if ! [ -f ".meteor/release" ]; then
   exit 1
 fi
 
-echo "=> App Meteor Version"
-meteor_version_app=$(cat .meteor/release)
-echo "  > $meteor_version_app"
-if [ $(cver "$meteor_version_app") -ge $(cver "1.4.2") ]; then
+# # First, try to get the Meteor version from the .meteor/release file in the app.
+# if [ -z "$METEOR_RELEASE" ]; then
+#   METEOR_RELEASE="$(grep "^METEOR@" .meteor/release | sed 's/^METEOR@//;')"
+# fi
+
+# Check to make sure it's not a generally unpublished version, like beta or RC.
+# These aren't generally available as direct bootstrap downloads.
+if ! [ -z "$METEOR_RELEASE" ]; then
+  if (echo "$METEOR_RELEASE" | grep -Eq '\-(alpha|beta|rc)'); then
+    echo "Beta and RC releases will not work with the \$METEOR_RELEASE variable"
+    unset METEOR_RELEASE
+  fi
+fi
+
+# Would like to use a cached Meteor here at some point, but for now,
+# download the installer, attempting to use the preferred version, from
+# the install.meteor.com script
+if true; then
+  curl -sL "https://install.meteor.com?release=${METEOR_RELEASE}" \
+    > /tmp/install_meteor.sh
+
+  if [ -z "${METEOR_RELEASE}" ]; then
+    # Read it from the install file.
+    echo "Setting METEOR_RELEASE from the installer"
+    eval "METEOR_RELEASE=$( \
+      cat /tmp/install_meteor.sh | \
+      grep '^RELEASE="[0-9\.a-z-]\+"$' | \
+      sed 's/RELEASE=//;s/"//g' \
+    )"
+  fi
+
+  echo "Running the installer (${METEOR_RELEASE})"
+  cat /tmp/install_meteor.sh | sed s/--progress-bar/-sL/g | /bin/sh
+
+else
+  METEOR_SYMLINK_TARGET="$(readlink "$HOME/.meteor/meteor")"
+  METEOR_TOOL_DIRECTORY="$(dirname "$METEOR_SYMLINK_TARGET")"
+  LAUNCHER="$HOME/.meteor/$METEOR_TOOL_DIRECTORY/scripts/admin/launch-meteor"
+  echo "Making 'meteor' Symlink from ${LAUNCHER}"
+  ln $LAUNCHER -sf /usr/local/bin/meteor
+
+fi
+
+if [ $(cver "${METEOR_RELEASE}") -ge $(cver "1.4.2") ]; then
+  # If the primary release requires the --unsafe-perm flag, let's pass it.
   unsafe_perm_flag="--unsafe-perm"
+
+  echo "Patching 1.4.2+ release to not pass --unsafe-perm to springboarded version..."
+  perl -0pi.bak \
+    -e 's/(^\h+var newArgv.*?$)/$1\n\n  newArgv = _.filter(newArgv, function (arg) { return arg !== "--unsafe-perm"; });/ms' \
+    $HOME/.meteor/$METEOR_TOOL_DIRECTORY/tools/cli/main.js
+  echo "...done"
 else
   unsafe_perm_flag=""
 fi
 
+echo "=> App Meteor Version"
+meteor_version_app=$(cat .meteor/release)
+echo "  > $meteor_version_app"
+
 echo "=> Executing NPM install --production"
-meteor npm install --production
+meteor npm install --production 2>&1 > /dev/null
 
 echo "=> Executing Meteor Build..."
 
-METEOR_LOG=debug \
-  meteor build \
+meteor build \
   ${unsafe_perm_flag} \
   --directory $bundle_dir \
   --server=http://localhost:3000
-
-# echo "=> Printing Meteor Node information..."
-# echo "  => platform"
-# meteor node -p process.platform
-# echo "  => arch"
-# meteor node -p process.arch
-# echo "  => versions"
-# meteor node -p process.versions
-
-# echo "=> Printing System Node information..."
-# echo "  => platform"
-# node -p process.platform
-# echo "  => arch"
-# node -p process.arch
-# echo "  => versions"
-# node -p process.versions
 
 echo "=> Executing NPM install within Bundle"
 (cd ${bundle_dir}/bundle/programs/server/ && npm install --unsafe-perm)
