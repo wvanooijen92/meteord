@@ -25,7 +25,7 @@ else
   release_argument=""
 fi
 
-meteor create ${release_argument} "${base_app_name}"
+meteor create ${release_argument} "${base_app_name}" 2>&1 > /dev/null
 cd "${base_app_name}"
 add_watch_token
 add_binary_dependency
