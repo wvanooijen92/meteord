@@ -15,8 +15,9 @@ clean
 
 docker run  \
     --name "${base_app_name}" \
-    --entrypoint="phantomjs -h" \
-    "abernix/meteord:base"
+    --entrypoint=phantomjs \
+    "abernix/meteord:base" \
+    --help
 
 sleep 5
 
