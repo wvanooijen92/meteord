@@ -4,6 +4,8 @@ set -e
 my_dir=`dirname $0`
 . ${my_dir}/lib.sh
 
+check_images_set
+
 base_app_name="meteord-test-app"
 
 clean() {
@@ -37,7 +39,7 @@ cd "${base_app_name}"
 add_watch_token
 add_binary_dependency
 
-echo "FROM abernix/meteord:onbuild" > Dockerfile
+echo "FROM ${DOCKER_IMAGE_NAME_ONBUILD}" > Dockerfile
 
 test_root_url_hostname="yourapp_dot_com"
 
@@ -48,15 +50,11 @@ docker run -d \
     -p 63836:80 \
     "${base_app_image_name}"
 
-watch_docker_logs_for_token "${base_app_name}" || true
+watch_docker_logs_for_token "${base_app_name}"
 sleep 1
-docker logs "${base_app_name}"
-
 ! docker_logs_has "${base_app_name}" "you are using a pure-JavaScript"
-
 docker_logs_has_bcrypt_token "${base_app_name}"
-
-check_server_for "63836" "${test_root_url_hostname}" || true
+check_server_for "63836" "${test_root_url_hostname}"
 
 trap - EXIT
 clean

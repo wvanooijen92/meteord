@@ -3,7 +3,7 @@
 set -x
 set -e
 
-: ${NODE_VERSION?"NODE_VERSION has not been set."}
+: ${NODE_VERSION?"must be set."}
 
 my_dir=`dirname $0`
 root_dir="$my_dir/.."

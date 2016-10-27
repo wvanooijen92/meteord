@@ -1,13 +1,18 @@
 #!/bin/sh
 
-doalarm () { perl -e 'alarm shift; exec @ARGV' "$@"; }
-
 watch_token="=====METEORD_TEST====="
+
+doalarm() { perl -e 'alarm shift; exec @ARGV' "$@"; }
 
 cver () {
   echo $1 | perl -n \
   -e '@ver = /^(?:[^\@]+\@)?([0-9]+)\.([0-9]+)(?:\.([0-9]+))?(?:\.([0-9]+))?/;' \
   -e 'printf "%04s%04s%04s%04s", @ver;'
+}
+
+check_images_set () {
+  : ${DOCKER_IMAGE_NAME_BASE?"has not been set."}
+  : ${DOCKER_IMAGE_NAME_ONBUILD?"has not been set."}
 }
 
 add_binary_dependency () {
@@ -35,7 +40,7 @@ docker_logs_has_bcrypt_token () {
 }
 
 watch_docker_logs_for () {
-  docker logs -f "$1" | grep --line-buffered -m1 "$2"
+  doalarm ${3:-120} sh -c "docker logs -f '$1' | grep --line-buffered -m1 '$2'"
 }
 
 watch_docker_logs_for_app_ready () {
