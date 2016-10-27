@@ -32,7 +32,7 @@ sleep 1
 watch_docker_logs_for_token "${base_app_name}"
 sleep 1
 
-check_server_for "63836" "${test_root_url_hostname}" || true
+check_server_for "63836" "${test_root_url_hostname}"
 
 trap - EXIT
 clean
