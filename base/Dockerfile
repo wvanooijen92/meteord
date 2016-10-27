@@ -36,9 +36,5 @@ RUN ["npm", "install", "--global", "phantomjs@1"]
 
 RUN lib/cleanup.sh
 
-ONBUILD ENV BUILDJESSE1=true
-ONBUILD COPY ./ /app
-ONBUILD RUN lib/build_app.sh
-
 EXPOSE 80
 ENTRYPOINT ./run_app.sh

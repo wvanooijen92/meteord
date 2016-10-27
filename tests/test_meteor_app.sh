@@ -37,7 +37,7 @@ cd "${base_app_name}"
 add_watch_token
 add_binary_dependency
 
-echo "FROM abernix/meteord:base" > Dockerfile
+echo "FROM abernix/meteord:onbuild" > Dockerfile
 
 test_root_url_hostname="yourapp_dot_com"
 

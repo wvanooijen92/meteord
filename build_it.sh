@@ -14,3 +14,11 @@ docker build \
     docker tag \
       "abernix/meteord:base-node-${NODE_VERSION}" \
       abernix/meteord:base
+
+docker build \
+    -t "abernix/meteord:onbuild-node-${NODE_VERSION}" \
+    ${my_dir}/onbuild \
+  && \
+    docker tag \
+      "abernix/meteord:onbuild-node-${NODE_VERSION}" \
+      abernix/meteord:onbuild
