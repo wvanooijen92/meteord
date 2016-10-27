@@ -13,7 +13,7 @@ dependencies:
   override:
     - test -f $HOME/.meteor/meteor || (curl https://install.meteor.com | sh)
     - sudo ln -s $HOME/.meteor/meteor /usr/bin/meteor
-    - ./dev/build_it.sh
+    - . ./dev/build_it.sh
   cache_directories:
     - ../.meteor
 
