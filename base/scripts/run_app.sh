@@ -7,12 +7,12 @@ path=`pwd`
 
 if [ -d /bundle ]; then
   cd /bundle
-  tar xzf --no-same-owner *.tar.gz
+  tar -xz --no-same-owner --file *.tar.gz
   cd bundle/
 elif [ -n "$BUNDLE_URL" ]; then
   cd /tmp
   curl -L -o bundle.tar.gz $BUNDLE_URL
-  tar -xzf --no-same-owner bundle.tar.gz
+  tar -xz --no-same-owner --file bundle.tar.gz
   cd bundle/
 elif [ -d /built_app ]; then
   cd /built_app
