@@ -16,16 +16,16 @@ IFS="
 "
 
 our_scripts="\
-${my_dir}/test_meteor_app.sh
-${my_dir}/test_bundle_local_mount.sh
-${my_dir}/test_bundle_web.sh
-${my_dir}/test_phantomjs.sh
-${my_dir}/test_no_app.sh
+${my_dir}/tests/test_meteor_app.sh
+${my_dir}/tests/test_bundle_local_mount.sh
+${my_dir}/tests/test_bundle_web.sh
+${my_dir}/tests/test_phantomjs.sh
+${my_dir}/tests/test_no_app.sh
 "
 
 our_scripts="${our_scripts}$( \
   cat ${my_dir}/meteor_versions_to_test | \
-  xargs -n1 echo ${my_dir}/test_meteor_app.sh
+  xargs -n1 echo ${my_dir}/tests/test_meteor_app.sh
 )"
 
 our_work="$( \
