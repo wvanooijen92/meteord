@@ -10,7 +10,7 @@ DOCKER_IMAGE_NAME_BASE="${IMAGE_NAME}:node-${NODE_VERSION}"
 DOCKER_IMAGE_NAME_ONBUILD="${DOCKER_IMAGE_NAME_BASE}-onbuild"
 
 if [ -z "$FINAL_BUILD" ]; then
-  test_build_hash="-$(openssl rand -base64 10 | md5 | head -c10)"
+  test_build_hash="-$(date | md5 | head -c10)"
 
   DOCKER_IMAGE_NAME_BASE="${DOCKER_IMAGE_NAME_BASE}${test_build_hash}"
   DOCKER_IMAGE_NAME_ONBUILD="${DOCKER_IMAGE_NAME_ONBUILD}${test_build_hash}"
