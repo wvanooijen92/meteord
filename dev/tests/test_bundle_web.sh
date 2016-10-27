@@ -19,7 +19,7 @@ clean
 
 test_root_url_hostname="web_app"
 
-export BUNDLE_URL=https://abernix-meteord-tests.s3-us-west-2.amazonaws.com/meteor-1.4.1.2.tar.gz
+export BUNDLE_URL=https://abernix-meteord-tests.s3-us-west-2.amazonaws.com/meteor-1.4.1.3.tar.gz
 
 docker run -d \
     --name "${base_app_name}" \
@@ -31,7 +31,6 @@ docker run -d \
 sleep 1
 watch_docker_logs_for_token "${base_app_name}"
 sleep 1
-
 check_server_for "63836" "${test_root_url_hostname}"
 
 trap - EXIT
