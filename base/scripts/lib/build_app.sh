@@ -90,7 +90,7 @@ else
 fi
 
 unsafe_perm_flag=""
-if [ $(cver "${METEOR_RELEASE}") -ge $(cver "1.4.2") ]; then
+if [ $(cver "${METEOR_RELEASE}") -eq $(cver "1.4.2") ]; then
   # If the primary release requires the --unsafe-perm flag, let's pass it.
   unsafe_perm_flag="--unsafe-perm"
 
