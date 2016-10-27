@@ -31,13 +31,17 @@ cver () {
 }
 
 if ! [ -d ".meteor" ]; then
-  echo "*** There is no '.meteor' directory in this project!"
+  echo "********************************************************"
+  echo "*** There is no '.meteor' directory in this project! ***"
+  echo "********************************************************"
   exit 1
 fi
 
 if ! [ -f ".meteor/release" ]; then
+  echo "*************************************************"
   echo "There is no .meteor/release file on this project."
   echo "Make sure the project is configured properly."
+  echo "*************************************************"
   exit 1
 fi
 
@@ -50,7 +54,7 @@ fi
 # These aren't generally available as direct bootstrap downloads.
 if ! [ -z "$METEOR_RELEASE" ]; then
   if (echo "$METEOR_RELEASE" | grep -Eq '\-(alpha|beta|rc)'); then
-    echo "Beta and RC releases will not work with the \$METEOR_RELEASE variable"
+    echo "=> [warn] Beta and RC releases cannot use the streamlined downloading..."
     unset METEOR_RELEASE
   fi
 fi
@@ -72,16 +76,17 @@ if true; then
     )"
   fi
 
-  echo "Running the installer (${METEOR_RELEASE})"
+  echo "=> Running the ${METEOR_RELEASE} installer..."
   cat /tmp/install_meteor.sh | sed s/--progress-bar/-sL/g | /bin/sh
 
 else
+  ## For future use:
+  ## ....to symlink a cached Meteor's `meteor` execuatable
   METEOR_SYMLINK_TARGET="$(readlink "$HOME/.meteor/meteor")"
   METEOR_TOOL_DIRECTORY="$(dirname "$METEOR_SYMLINK_TARGET")"
   LAUNCHER="$HOME/.meteor/$METEOR_TOOL_DIRECTORY/scripts/admin/launch-meteor"
   echo "Making 'meteor' Symlink from ${LAUNCHER}"
   ln $LAUNCHER -sf /usr/local/bin/meteor
-
 fi
 
 unsafe_perm_flag=""
@@ -89,7 +94,7 @@ if [ $(cver "${METEOR_RELEASE}") -ge $(cver "1.4.2") ]; then
   # If the primary release requires the --unsafe-perm flag, let's pass it.
   unsafe_perm_flag="--unsafe-perm"
 
-  echo "Patching 1.4.2+ release to not pass --unsafe-perm to springboarded version..."
+  echo "=> Hot-Patching 1.4.2 release to not pass --unsafe-perm to springboarded version..."
   perl -0pi.bak \
     -e 's/(^\h+var newArgv.*?$)/$1\n\n  newArgv = _.filter(newArgv, function (arg) { return arg !== "--unsafe-perm"; });/ms' \
     $HOME/.meteor/$METEOR_TOOL_DIRECTORY/tools/cli/main.js
