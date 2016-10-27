@@ -21,7 +21,7 @@ my_dir=`dirname $0`
   ${my_dir}/tests/test_bundle_local_mount.sh
 
   # # This uses BUNDLE_URL from S3.  Broken
-  # ${my_dir}/tests/test_bundle_web.sh
+  ${my_dir}/tests/test_bundle_web.sh
 
   ${my_dir}/tests/test_phantomjs.sh
   ${my_dir}/tests/test_no_app.sh
