@@ -38,4 +38,11 @@ if [ -z "${our_work}" ]; then
   exit 0
 fi
 
-echo "${our_work}" | tr '\n' '\0' | xargs -n1 -0 -I% -t sh -c "%"
+(
+  . ${my_dir}/build_it.sh
+
+  # We should now have access to these vars, let's share them.
+  export DOCKER_IMAGE_NAME_BASE
+  export DOCKER_IMAGE_NAME_ONBUILD
+  echo "${our_work}" | tr '\n' '\0' | xargs -n1 -0 -I% -t sh -c "%"
+)
