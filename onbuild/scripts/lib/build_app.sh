@@ -14,9 +14,6 @@ export METEOR_WAREHOUSE_URLBASE
 copied_app_path=/copied-app
 bundle_dir=/tmp/bundle-dir
 
-echo "=> Current environment"
-export
-
 # sometimes, directly copied folder cause some weird issues
 # this fixes that
 echo "=> Copying the app"

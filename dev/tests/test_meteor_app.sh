@@ -43,7 +43,7 @@ echo "FROM ${DOCKER_IMAGE_NAME_ONBUILD}" > Dockerfile
 
 test_root_url_hostname="yourapp_dot_com"
 
-docker build -t "${base_app_image_name}" ./
+docker build -t "${base_app_image_name}" .
 docker run -d \
     --name "${base_app_name}" \
     -e ROOT_URL=http://$test_root_url_hostname \
