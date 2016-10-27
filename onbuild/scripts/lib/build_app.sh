@@ -60,7 +60,7 @@ fi
 # download the installer, attempting to use the preferred version, from
 # the install.meteor.com script
 if true; then
-  curl -sL "https://install.meteor.com?release=${METEOR_RELEASE}" \
+  curl -sL "https://install.meteor.com/?release=${METEOR_RELEASE}" \
     > /tmp/install_meteor.sh
 
   if [ -z "${METEOR_RELEASE}" ]; then
