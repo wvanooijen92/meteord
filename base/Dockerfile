@@ -8,7 +8,6 @@ COPY scripts .
 
 ARG NODE_VERSION
 ENV NODE_VERSION ${NODE_VERSION:-4.6.1}
-ENV JESSE1=true
 
 ENV NODESOURCE_DEBIAN_DIST jessie
 ENV NODESOURCE_BASEURL https://deb.nodesource.com/node_4.x
