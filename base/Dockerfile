@@ -1,4 +1,4 @@
-FROM buildpack-deps:jessie
+FROM debian:jessie
 MAINTAINER Jesse Rosenberger
 
 WORKDIR /opt/meteord
