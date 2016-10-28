@@ -25,7 +25,6 @@ RUN apt-get update && apt-get -f install -y && apt-get install -y \
     libfreetype6-dev \
     libssl-dev \
     g++ \
-    git \
     python \
   && rm -rf /var/lib/apt/lists/*
 
