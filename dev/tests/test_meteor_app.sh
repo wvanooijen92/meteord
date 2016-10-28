@@ -50,6 +50,7 @@ docker run -d \
     -p 63836:80 \
     "${base_app_image_name}"
 
+sleep 1
 watch_docker_logs_for_token "${base_app_name}"
 sleep 1
 ! docker_logs_has "${base_app_name}" "you are using a pure-JavaScript"
