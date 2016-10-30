@@ -28,7 +28,7 @@ root_dir="$my_dir/.."
     derivative=$1
     derivative_tag=$2
 
-    derivative_dockerfile = "${root_dir}/${derivative}/Dockerfile.from.$(
+    derivative_dockerfile = "${root_dir}/images/${derivative}/Dockerfile.from.$(
       echo ${DOCKER_IMAGE_NAME_BASE} | tr '/:' '_'
     )"
 
