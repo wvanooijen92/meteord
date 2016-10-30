@@ -56,7 +56,7 @@ root_dir="$my_dir/.."
       -t "${DOCKER_IMAGE_NAME_BASE}" \
       ${root_dir}/images/base
 
-  make_image_derivative mup $DOCKER_IMAGE_NAME_BUILDDEPS
+  make_image_derivative builddeps $DOCKER_IMAGE_NAME_BUILDDEPS
   make_image_derivative onbuild $DOCKER_IMAGE_NAME_ONBUILD
 
 )

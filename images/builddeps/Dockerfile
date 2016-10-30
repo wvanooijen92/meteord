@@ -1,4 +1,4 @@
-FROM abernix/spaceglue:mup
+FROM abernix/spaceglue:builddeps
 MAINTAINER Jesse Rosenberger
 
 COPY scripts .
