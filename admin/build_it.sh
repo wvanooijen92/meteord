@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -x
+set -e
 
 : ${NODE_VERSION?"must be set."}
 : ${IMAGE_NAME:=abernix/spaceglue}
