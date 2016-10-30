@@ -6,7 +6,7 @@ my_dir=`dirname $0`
 
 check_images_set
 
-base_app_name="meteord-test-no_app"
+base_app_name="spaceglue-test-no_app"
 
 clean() {
   docker rm -f "${base_app_name}" 2> /dev/null || true

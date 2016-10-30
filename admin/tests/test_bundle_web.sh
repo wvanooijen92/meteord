@@ -6,10 +6,10 @@ my_dir=`dirname $0`
 
 check_images_set
 
-base_app_name="meteord-test-web"
+base_app_name="spaceglue-test-web"
 
 clean() {
-  docker rm -f meteord-test-web 2> /dev/null || true
+  docker rm -f "${base_app_name}" 2> /dev/null || true
 }
 
 trap "echo Failed: Bundle web" EXIT

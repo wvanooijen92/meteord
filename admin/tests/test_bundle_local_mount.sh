@@ -6,12 +6,12 @@ my_dir=`dirname $0`
 
 check_images_set
 
-base_app_name="meteord-test-localmount"
+base_app_name="spaceglue-test-localmount"
 
 clean() {
   docker rm -f "${base_app_name}" 2> /dev/null || true
   rm -rf "${base_app_name}-bundle" || true
-  rm -rf ${base_app_name} || true
+  rm -rf "${base_app_name}" || true
 }
 
 trap "echo Failed: Bundle local mount" EXIT

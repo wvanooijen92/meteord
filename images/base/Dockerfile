@@ -1,8 +1,8 @@
 FROM buildpack-deps:jessie-curl
 MAINTAINER Jesse Rosenberger
 
-WORKDIR /opt/meteord
-ONBUILD WORKDIR /opt/meteord
+WORKDIR /opt/spaceglue
+ONBUILD WORKDIR /opt/spaceglue
 ADD apt-sources.list /etc/apt/sources.list
 COPY scripts .
 
