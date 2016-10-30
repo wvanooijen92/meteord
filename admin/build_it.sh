@@ -24,7 +24,7 @@ root_dir="$my_dir/.."
 # Run as a subshell to avoid polluting `my_dir` up.
 (
 
-  make_image_derivative () {
+  build_image_derivative () {
     derivative=$1
     derivative_tag=$2
 
@@ -39,7 +39,7 @@ root_dir="$my_dir/.."
     trap "cleanup_derivative && echo Failed: Could not build '${derivative}' image" EXIT
 
     sed "s|^FROM .*$|FROM ${DOCKER_IMAGE_NAME_BASE}|" \
-      "${root_dir}/${derivative}/Dockerfile" > \
+      "${root_dir}/images/${derivative}/Dockerfile" > \
       "${derivative_dockerfile}"
 
     docker build \
@@ -56,8 +56,8 @@ root_dir="$my_dir/.."
       -t "${DOCKER_IMAGE_NAME_BASE}" \
       ${root_dir}/images/base
 
-  make_image_derivative builddeps $DOCKER_IMAGE_NAME_BUILDDEPS
-  make_image_derivative onbuild $DOCKER_IMAGE_NAME_ONBUILD
+  build_image_derivative builddeps $DOCKER_IMAGE_NAME_BUILDDEPS
+  build_image_derivative onbuild $DOCKER_IMAGE_NAME_ONBUILD
 
 )
 
