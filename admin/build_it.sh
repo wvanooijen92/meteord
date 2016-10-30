@@ -25,8 +25,8 @@ root_dir="$my_dir/.."
 (
 
   make_image_derivative () {
-    derivative = $1
-    derivative_tag = $2
+    derivative=$1
+    derivative_tag=$2
 
     derivative_dockerfile = "${root_dir}/${derivative}/Dockerfile.from.$(
       echo ${DOCKER_IMAGE_NAME_BASE} | tr '/:' '_'
