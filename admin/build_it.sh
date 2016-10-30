@@ -43,7 +43,7 @@ root_dir="$my_dir/.."
       "${derivative_dockerfile}"
 
     docker build \
-        -t "$2" \
+        -t "${derivative_tag}" \
         -f "${derivative_dockerfile}" \
         "${root_dir}/images/${derivative}"
 
