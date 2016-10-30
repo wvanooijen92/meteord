@@ -12,6 +12,7 @@ cver () {
 
 check_images_set () {
   : ${DOCKER_IMAGE_NAME_BASE?"has not been set."}
+  : ${DOCKER_IMAGE_NAME_BUILDDEPS?"has not been set."}
   : ${DOCKER_IMAGE_NAME_ONBUILD?"has not been set."}
 }
 

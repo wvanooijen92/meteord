@@ -18,9 +18,8 @@ ADD "${NODESOURCE_BASEURL}${NODESOURCE_BASEPATH}${NODESOURCE_DEB_PATH}" node.deb
 
 RUN (dpkg -i node.deb 2> /dev/null || true) && rm node.deb
 
-RUN apt-get update && apt-get -f install -y && apt-get install -y \
+RUN apt-get update && apt-get -f install -y && apt-get install -y --no-install-recommends \
     build-essential \
-    curl \
     fontconfig \
     libfreetype6-dev \
     libssl-dev \
@@ -29,8 +28,6 @@ RUN apt-get update && apt-get -f install -y && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 RUN ["npm", "install", "--global", "npm@3"]
-RUN ["npm", "install", "--global", "node-gyp"]
-RUN ["npm", "install", "--global", "phantomjs@1"]
 
 RUN lib/cleanup.sh
 

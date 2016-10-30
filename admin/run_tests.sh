@@ -12,6 +12,7 @@ my_dir=`dirname $0`
 
   # We should now have access to these vars, let's share them.
   export DOCKER_IMAGE_NAME_BASE
+  export DOCKER_IMAGE_NAME_BUILDDEPS
   export DOCKER_IMAGE_NAME_ONBUILD
 
   for meteor_version in `cat ${my_dir}/meteor_versions_to_test`; do
