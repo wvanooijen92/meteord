@@ -18,13 +18,7 @@ ADD "${NODESOURCE_BASEURL}${NODESOURCE_BASEPATH}${NODESOURCE_DEB_PATH}" node.deb
 
 RUN (dpkg -i node.deb 2> /dev/null || true) && rm node.deb
 
-RUN apt-get update && apt-get -f install -y && apt-get install -y --no-install-recommends \
-    build-essential \
-    fontconfig \
-    libfreetype6-dev \
-    libssl-dev \
-    g++ \
-    python \
+RUN apt-get update && apt-get -f install -y \
   && rm -rf /var/lib/apt/lists/*
 
 RUN ["npm", "install", "--global", "npm@3"]
