@@ -25,7 +25,7 @@ build_image_derivative () {
   derivative_dockerfile="${root_dir}/images/${derivative}/Dockerfile.generated"
 
   cleanup_derivative () {
-    # rm -f "${derivative_dockerfile}"
+    rm -f "${derivative_dockerfile}" || true
   }
 
   trap "cleanup_derivative && echo Failed: Could not build '${derivative}' image" EXIT
