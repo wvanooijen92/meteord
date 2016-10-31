@@ -2,7 +2,6 @@ FROM abernix/spaceglue:base
 MAINTAINER Jesse Rosenberger
 
 RUN apt-get update && apt-get -f install -y && apt-get install -y --no-install-recommends \
-    bzip2 \
     build-essential \
     fontconfig \
     libfreetype6-dev \
