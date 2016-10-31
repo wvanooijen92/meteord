@@ -26,3 +26,6 @@ docker_logs_has "${base_app_name}" "You don't have an meteor app"
 
 trap - EXIT
 clean
+
+set +x
+set +e

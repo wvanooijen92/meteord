@@ -28,3 +28,6 @@ docker_logs_has "${base_app_name}" "GhostDriver"
 
 trap - EXIT
 clean
+
+set +x
+set +e

@@ -47,3 +47,6 @@ fi
   export DOCKER_IMAGE_NAME_ONBUILD
   echo "${our_work}" | tr '\n' '\0' | xargs -n1 -0 -I% -t sh -c "%"
 )
+
+set +x
+set +e

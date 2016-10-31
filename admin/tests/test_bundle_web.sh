@@ -35,3 +35,6 @@ check_server_for "63836" "${test_root_url_hostname}"
 
 trap - EXIT
 clean
+
+set +x
+set +e

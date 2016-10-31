@@ -63,3 +63,4 @@ root_dir="$my_dir/.."
 )
 
 set +x
+set +e

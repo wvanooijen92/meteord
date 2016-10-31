@@ -128,3 +128,6 @@ rm -rf ${bundle_dir}
 echo " => .meteor"
 rm -rf ~/.meteor
 rm /usr/local/bin/meteor
+
+set +x
+set +e
