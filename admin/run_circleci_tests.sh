@@ -39,7 +39,7 @@ if [ -z "${our_work}" ]; then
 fi
 
 (
-  . ${my_dir}/build_it.sh
+  TEST_BUILD=true . ${my_dir}/build_it.sh
 
   # We should now have access to these vars, let's share them.
   export DOCKER_IMAGE_NAME_BASE
