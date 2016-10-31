@@ -1,7 +1,6 @@
 #!/bin/sh
 
 set -e # Exit on any bad exit status
-set -x # Print each command
 my_dir=`dirname $0`
 
 # Shouldn't matter, but just in case.
@@ -129,5 +128,4 @@ echo " => .meteor"
 rm -rf ~/.meteor
 rm /usr/local/bin/meteor
 
-set +x
 set +e
