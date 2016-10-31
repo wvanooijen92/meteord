@@ -43,7 +43,7 @@ build_image_derivative () {
   docker build \
       -t "${derivative_tag}" \
       -f "${derivative_dockerfile}" \
-      "${root_dir}/images/${derivative}"
+      "${root_dir}/images/${derivative}" >&2
 
   echo "${derivative_tag}"
 
