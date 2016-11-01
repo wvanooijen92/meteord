@@ -37,14 +37,16 @@ docker_logs_has () {
 }
 
 docker_logs_has_bcrypt_token () {
-  docker logs "$1" | \
-    grep -E '^bcrypt:::\$2[ay]?\$[0-9]{1,2}\$[^\$]{53}:::$' 2>&1
+  docker logs "$1" 2>&1 | \
+    grep -E --quiet \
+      '^bcrypt:::\$2[ay]?\$[0-9]{1,2}\$[^\$]{53}:::$' 2>&1 > /dev/null
 }
 
 watch_docker_logs_for () {
-  docker logs -f "$1" | \
-    grep --line-buffered -m1 "$2" | \
-    tee /dev/null 2>&1
+  docker logs -f "$1" 2>&1 | \
+    tee /dev/null | \
+    grep --line-buffered --max-count=1 --quiet "$2" | \
+    tee /dev/null
 }
 
 watch_docker_logs_for_app_ready () {
