@@ -43,7 +43,8 @@ docker_logs_has_bcrypt_token () {
 
 watch_docker_logs_for () {
   docker logs -f "$1" | \
-    grep --line-buffered -m1 "$2" 2>&1
+    grep --line-buffered -m1 "$2" | \
+    tee /dev/null 2>&1
 }
 
 watch_docker_logs_for_app_ready () {
