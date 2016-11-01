@@ -43,7 +43,7 @@ docker_logs_has_bcrypt_token () {
 }
 
 watch_docker_logs_for () {
-  doalarm ${3:-120} sh -c "\
+  doalarm ${3:-1} sh -c "\
     docker logs -f $1 2>/dev/null | \
     grep --line-buffered --max-count=1 --quiet "'"'"$2"'"'
 }
