@@ -41,7 +41,7 @@ docker_logs_has_bcrypt_token () {
 }
 
 watch_docker_logs_for () {
-  doalarm ${3:-120} sh -c 'docker logs -f "$1" \| grep --line-buffered -m1 "$2"'
+  doalarm ${3:-120} docker logs -f "$1" | grep --line-buffered -m1 "$2"
 }
 
 watch_docker_logs_for_app_ready () {
