@@ -19,7 +19,7 @@ clean
 docker run  \
     --name "${base_app_name}" \
     --entrypoint=phantomjs \
-    "${DOCKER_IMAGE_NAME_BASE}" \
+    "${DOCKER_IMAGE_NAME_ONBUILD}" \
     --help
 
 sleep 5
