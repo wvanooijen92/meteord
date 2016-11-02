@@ -13,7 +13,7 @@ clean() {
   rm -rf "${base_app_name}" || true
 }
 
-trap "echo Failed: Meteor app" EXIT
+trap "echo Failed: Meteor app ${1:-default}" EXIT
 
 base_app_image_name="${base_app_name}-image"
 
