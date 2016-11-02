@@ -55,6 +55,10 @@ if ! [ -z "$METEOR_RELEASE" ]; then
   fi
 fi
 
+# Useful for various hot-patches/optimizations
+meteor_bin_symlink="$(readlink "$HOME/.meteor/meteor")"
+meteor_tool_dir="$(dirname "${meteor_bin_symlink}")"
+
 # Would like to use a cached Meteor here at some point, but for now,
 # download the installer, attempting to use the preferred version, from
 # the install.meteor.com script
@@ -78,9 +82,7 @@ if true; then
 else
   ## For future use:
   ## ....to symlink a cached Meteor's `meteor` execuatable
-  METEOR_SYMLINK_TARGET="$(readlink "$HOME/.meteor/meteor")"
-  METEOR_TOOL_DIRECTORY="$(dirname "$METEOR_SYMLINK_TARGET")"
-  LAUNCHER="$HOME/.meteor/$METEOR_TOOL_DIRECTORY/scripts/admin/launch-meteor"
+  LAUNCHER="$HOME/.meteor/${meteor_tool_dir}/scripts/admin/launch-meteor"
   echo "Making 'meteor' Symlink from ${LAUNCHER}"
   ln $LAUNCHER -sf /usr/local/bin/meteor
 fi
@@ -93,7 +95,7 @@ if [ $(cver "${METEOR_RELEASE}") -eq $(cver "1.4.2") ]; then
   echo "=> Hot-Patching 1.4.2 release to not pass --unsafe-perm to springboarded version..."
   perl -0pi.bak \
     -e 's/(^\h+var newArgv.*?$)/$1\n\n  newArgv = _.filter(newArgv, function (arg) { return arg !== "--unsafe-perm"; });/ms' \
-    $HOME/.meteor/$METEOR_TOOL_DIRECTORY/tools/cli/main.js
+    $HOME/.meteor/${meteor_tool_dir}/tools/cli/main.js
   echo "...done"
 fi
 
