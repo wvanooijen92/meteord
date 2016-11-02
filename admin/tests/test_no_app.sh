@@ -1,5 +1,4 @@
 #!/bin/sh
-set -x
 set -e
 my_dir=`dirname $0`
 . ${my_dir}/lib.sh
@@ -27,5 +26,4 @@ docker_logs_has "${base_app_name}" "You don't have an meteor app"
 trap - EXIT
 clean
 
-set +x
 set +e

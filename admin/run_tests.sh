@@ -1,6 +1,5 @@
 #!/bin/sh
 
-set -x
 set -e
 
 : ${NODE_VERSION?"must be set."}
@@ -30,5 +29,4 @@ my_dir=`dirname $0`
   # Consider doing some trap cleanup here.
 )
 
-set +x
 set +e

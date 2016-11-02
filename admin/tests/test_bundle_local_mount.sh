@@ -1,5 +1,4 @@
 #!/bin/sh
-set -x
 set -e
 my_dir=`dirname $0`
 . ${my_dir}/lib.sh
@@ -42,5 +41,4 @@ check_server_for "63836" "${test_root_url_hostname}"
 trap - EXIT
 clean
 
-set +x
 set +e

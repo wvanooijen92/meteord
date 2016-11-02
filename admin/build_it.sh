@@ -1,6 +1,5 @@
 #!/bin/sh
 
-set -x
 set -e
 
 : ${NODE_VERSION?"must be set."}
@@ -59,5 +58,4 @@ docker build \
 DOCKER_IMAGE_NAME_BUILDDEPS="$(build_image_derivative ${name_base} builddeps)"
 DOCKER_IMAGE_NAME_ONBUILD="$(build_image_derivative ${name_base} onbuild)"
 
-set +x
 set +e
