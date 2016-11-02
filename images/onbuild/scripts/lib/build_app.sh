@@ -56,10 +56,6 @@ if ! [ -z "$METEOR_RELEASE" ]; then
   fi
 fi
 
-# Useful for various hot-patches/optimizations
-meteor_bin_symlink="$(readlink "$HOME/.meteor/meteor")"
-meteor_tool_dir="$(dirname "${meteor_bin_symlink}")"
-
 # Would like to use a cached Meteor here at some point, but for now,
 # download the installer, attempting to use the preferred version, from
 # the install.meteor.com script
@@ -80,13 +76,19 @@ if true; then
   echo "=> Running the ${METEOR_RELEASE} installer..."
   cat /tmp/install_meteor.sh | sed s/--progress-bar/-sL/g | /bin/sh
 
-else
-  ## For future use:
-  ## ....to symlink a cached Meteor's `meteor` execuatable
-  LAUNCHER="$HOME/.meteor/${meteor_tool_dir}/scripts/admin/launch-meteor"
-  echo "Making 'meteor' Symlink from ${LAUNCHER}"
-  ln $LAUNCHER -sf /usr/local/bin/meteor
+  set_meteor_tool_dir()
+
 fi
+
+# Useful for various hot-patches/optimizations
+meteor_bin_symlink="$(readlink "$HOME/.meteor/meteor")"
+meteor_tool_dir="$(dirname "${meteor_bin_symlink}")"
+
+## For future use:
+## ....to symlink a cached Meteor's `meteor` execuatable
+#LAUNCHER="$HOME/.meteor/${meteor_tool_dir}/scripts/admin/launch-meteor"
+#echo "Making 'meteor' Symlink from ${LAUNCHER}"
+#ln $LAUNCHER -sf /usr/local/bin/meteor
 
 unsafe_perm_flag=""
 if [ $(cver "${METEOR_RELEASE}") -eq $(cver "1.4.2") ]; then
