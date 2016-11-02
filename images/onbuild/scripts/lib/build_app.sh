@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e # Exit on any bad exit status
+set -x
 my_dir=`dirname $0`
 
 # Shouldn't matter, but just in case.
@@ -131,3 +132,4 @@ rm -rf ~/.meteor
 rm /usr/local/bin/meteor
 
 set +e
+set +x
