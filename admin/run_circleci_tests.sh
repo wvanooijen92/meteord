@@ -1,8 +1,5 @@
 #!/bin/sh
 
-set -x
-set -e
-
 : ${NODE_VERSION?"must be set."}
 
 my_dir=`dirname $0`
@@ -12,8 +9,6 @@ if [ -z "${CIRCLE_NODE_TOTAL}" ] || [ -z "${CIRCLE_NODE_INDEX}" ]; then
   echo "Not running on CircleCI"
   exit 1
 fi
-IFS="
-"
 
 our_scripts="\
 ${my_dir}/tests/test_meteor_app.sh
@@ -39,6 +34,8 @@ if [ -z "${our_work}" ]; then
 fi
 
 (
+  set -e
+
   TEST_BUILD=true . ${my_dir}/build_it.sh
 
   # We should now have access to these vars, let's share them.
@@ -46,7 +43,6 @@ fi
   export DOCKER_IMAGE_NAME_BUILDDEPS
   export DOCKER_IMAGE_NAME_ONBUILD
   echo "${our_work}" | tr '\n' '\0' | xargs -n1 -0 -I% -t sh -c "%"
-)
 
-set +x
-set +e
+  set +e
+)
