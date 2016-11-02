@@ -74,9 +74,6 @@ if true; then
 
   echo "=> Running the ${METEOR_RELEASE} installer..."
   cat /tmp/install_meteor.sh | sed s/--progress-bar/-sL/g | /bin/sh
-
-  set_meteor_tool_dir()
-
 fi
 
 # Useful for various hot-patches/optimizations
