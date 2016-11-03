@@ -33,16 +33,19 @@ EOM
 }
 
 docker_logs_has () {
-  docker logs "$1" | grep "$2"
+  echo "=> Watching Docker Logs on $1 for '${2}'"
+  docker logs "$1" 2>&1 | grep "$2"
 }
 
 docker_logs_has_bcrypt_token () {
+  echo "=> Checking Docker Logs for Bcrypt token"
   docker logs "$1" 2>&1 | \
     grep -E --quiet \
       '^bcrypt:::\$2[ay]?\$[0-9]{1,2}\$[^\$]{53}:::$' 2>&1 > /dev/null
 }
 
 watch_docker_logs_for () {
+  echo "=> Watching Docker Logs on $1 for '${2}'"
   doalarm ${3:-60} sh -c "\
     docker logs -f $1 2>/dev/null | \
     grep --line-buffered --max-count=1 --quiet "'"'"$2"'"'
@@ -57,5 +60,7 @@ watch_docker_logs_for_token () {
 }
 
 check_server_for () {
-  curl -s "http://localhost:$1" | grep "${2}" 2>&1 > /dev/null
+  check_url="http://localhost:$1"
+  echo "=> Checking ${check_url} for ${2}..."
+  curl -s ${check_url} | grep "${2}" 2>&1 > /dev/null
 }

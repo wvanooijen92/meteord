@@ -24,7 +24,7 @@ docker run -d \
     --name "${base_app_name}" \
     -e ROOT_URL=http://$test_root_url_hostname \
     -e BUNDLE_URL \
-    -p 63836:80 \
+    -p 63836:3000 \
     "${DOCKER_IMAGE_NAME_BASE}"
 
 sleep 1
