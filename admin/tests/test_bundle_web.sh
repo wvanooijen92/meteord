@@ -27,7 +27,7 @@ docker run -d \
     -e ROOT_URL=http://$test_root_url_hostname \
     -e BUNDLE_URL \
     -p 63836:80 \
-    "${DOCKER_IMAGE_NAME_BASE}"
+    "${DOCKER_IMAGE_NAME_BUILDDEPS}"
 
 sleep 1
 watch_docker_logs_for_token "${base_app_name}"
