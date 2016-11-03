@@ -11,7 +11,7 @@ clean() {
   docker rm -f "${base_app_name}" 2> /dev/null || true
 }
 
-trap "echo Failed: Bundle web" EXIT
+trap "echo Failed: Bundle web && exit 1" EXIT
 
 cd /tmp
 clean

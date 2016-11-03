@@ -13,7 +13,7 @@ clean() {
   rm -rf "${base_app_name}" || true
 }
 
-trap "echo Failed: Bundle local mount" EXIT
+trap "echo Failed: Bundle local mount && exit 1" EXIT
 
 cd /tmp
 clean

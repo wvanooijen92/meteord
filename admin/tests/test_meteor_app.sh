@@ -8,12 +8,12 @@ check_images_set
 base_app_name="spaceglue-test-app"
 
 clean() {
-  docker rm -f "${base_app_name}" 2> /dev/null || true
-  docker rmi -f "${base_app_image_name}" 2> /dev/null || true
+  # docker rm -f "${base_app_name}" 2> /dev/null || true
+  # docker rmi -f "${base_app_image_name}" 2> /dev/null || true
   rm -rf "${base_app_name}" || true
 }
 
-trap "echo Failed: Meteor app ${1:-default}" EXIT
+trap "echo Failed: Meteor app ${1:-default} && exit 1" EXIT
 
 base_app_image_name="${base_app_name}-image"
 
