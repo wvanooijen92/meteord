@@ -109,8 +109,7 @@ echo "=> Executing Meteor Build..."
 
 meteor build \
   ${unsafe_perm_flag} \
-  --directory $bundle_dir \
-  --server=http://localhost:3000
+  --directory $bundle_dir
 
 echo "=> Executing NPM install within Bundle"
 (cd ${bundle_dir}/bundle/programs/server/ && npm install --unsafe-perm)
