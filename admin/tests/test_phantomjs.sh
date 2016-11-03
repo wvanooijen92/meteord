@@ -23,7 +23,7 @@ docker run  \
     "${DOCKER_IMAGE_NAME_ONBUILD}" \
     --help
 
-sleep 5
+sleep 1
 
 docker_logs_has "${base_app_name}" "GhostDriver"
 
