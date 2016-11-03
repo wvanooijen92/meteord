@@ -53,7 +53,7 @@ echo "  onbuild: ${DOCKER_IMAGE_NAME_ONBUILD}"
 export DOCKER_IMAGE_NAME_BASE
 export DOCKER_IMAGE_NAME_BUILDDEPS
 export DOCKER_IMAGE_NAME_ONBUILD
-echo "${our_work}" | tr '\n' '\0' | xargs -n1 -0 -I% -t sh -c "%"
+echo "${our_work}" | tr '\n' '\0' | xargs -n1 -0 -I% -t sh -c "% || exit 255"
 
 trap - ERR
 echo "All tests finished successfully."
