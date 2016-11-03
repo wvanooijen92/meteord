@@ -33,12 +33,12 @@ if [ -z "${our_work}" ]; then
   exit 0
 fi
 
-on_error () {
+on_test_error () {
   echo "ERROR: Some tests failed!"
   exit 1
 }
 
-trap on_error ERR
+trap 'on_test_error' ERR
 
 TEST_BUILD=true . ${my_dir}/build_it.sh
 
