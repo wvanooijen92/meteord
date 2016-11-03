@@ -50,13 +50,9 @@ docker run -d \
     "${base_app_image_name}"
 
 watch_docker_logs_for_token "${base_app_name}"
-echo "  => Result was $?"
 ! docker_logs_has "${base_app_name}" "you are using a pure-JavaScript"
-echo "  => Result was $?"
 docker_logs_has_bcrypt_token "${base_app_name}"
-echo "  => Result was $?"
 check_server_for "63836" "${test_root_url_hostname}"
-echo "  => Result was $?"
 
 trap - EXIT
 clean
