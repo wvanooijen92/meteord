@@ -107,8 +107,7 @@ meteor npm install --production 2>&1 > /dev/null
 
 echo "=> Executing Meteor Build..."
 
-METEOR_DEBUG_SPRINGBOARD=t \
-  meteor build \
+meteor build \
   ${unsafe_perm_flag} \
   --directory $bundle_dir \
   --server=http://localhost:3000
