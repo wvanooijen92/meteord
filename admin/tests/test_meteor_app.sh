@@ -13,17 +13,20 @@ clean() {
   rm -rf "${base_app_name}" || true
 }
 
-trap "echo Failed: Meteor app ${1:-default} && exit 1" EXIT
+meteor_version=$1
+meteor_version_label="${1:-default}"
+
+trap "echo Failed: Meteor app ${meteor_version_label} && exit 1" EXIT
 
 base_app_image_name="${base_app_name}-image"
 
 cd /tmp
 clean
 
-if ! [ -z "$1" ] && [ -n "$1" ]; then
-  echo "Testing Meteor $1"
-  release_argument="--release $1"
-  if [ $(cver "$1") -ge $(cver "1.4.2") ]; then
+if ! [ -z "${meteor_version}" ] && [ -n "${meteor_version}" ]; then
+  echo "Testing ${meteor_version_label} Meteor"
+  release_argument="--release ${meteor_version}"
+  if [ $(cver "${meteor_version}") -ge $(cver "1.4.2") ]; then
     unsafe_perm_flag="--unsafe-perm"
   else
     unsafe_perm_flag=""
@@ -33,6 +36,7 @@ else
   unsafe_perm_flag="--unsafe-perm"
 fi
 
+echo "=> Creating Meteor ${1:-default} App"
 meteor create ${release_argument} "${base_app_name}" 2>&1 > /dev/null
 cd "${base_app_name}"
 add_watch_token
