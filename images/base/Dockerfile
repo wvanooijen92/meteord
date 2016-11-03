@@ -25,5 +25,5 @@ RUN ["npm", "install", "--global", "npm@3"]
 
 RUN lib/cleanup.sh
 
-EXPOSE 80
+EXPOSE 3000
 ENTRYPOINT ./run_app.sh
