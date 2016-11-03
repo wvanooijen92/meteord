@@ -11,10 +11,12 @@ clean() {
   docker rm -f "${base_app_name}" 2> /dev/null || true
 }
 
-trap "echo Failed: Bundle web && exit 1" EXIT
+trap "echo Failed: Meteor Bundle from Web && exit 1" EXIT
 
 cd /tmp
 clean
+
+echo "=> Testing Meteor Bundle from Web (1.4.1.3)"
 
 test_root_url_hostname="web_app"
 

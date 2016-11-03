@@ -16,7 +16,7 @@ clean() {
 meteor_version=$1
 meteor_version_label="${1:-default}"
 
-trap "echo Failed: Meteor app ${meteor_version_label} && exit 1" EXIT
+trap "echo Failed: Meteor ${meteor_version_label} app build && exit 1" EXIT
 
 base_app_image_name="${base_app_name}-image"
 
@@ -24,7 +24,7 @@ cd /tmp
 clean
 
 if ! [ -z "${meteor_version}" ] && [ -n "${meteor_version}" ]; then
-  echo "Testing ${meteor_version_label} Meteor"
+  echo "=> Testing Meteor ${meteor_version:-}"
   release_argument="--release ${meteor_version}"
   if [ $(cver "${meteor_version}") -ge $(cver "1.4.2") ]; then
     unsafe_perm_flag="--unsafe-perm"
@@ -32,11 +32,12 @@ if ! [ -z "${meteor_version}" ] && [ -n "${meteor_version}" ]; then
     unsafe_perm_flag=""
   fi
 else
+  echo "=> Testing 'recommended' (default) Meteor version"
   release_argument=""
   unsafe_perm_flag="--unsafe-perm"
 fi
 
-echo "=> Creating Meteor ${1:-default} App"
+echo "  => Creating Meteor ${meteor_version:-} App"
 meteor create ${release_argument} "${base_app_name}" 2>&1 > /dev/null
 cd "${base_app_name}"
 add_watch_token
@@ -46,7 +47,8 @@ echo "FROM ${DOCKER_IMAGE_NAME_ONBUILD}" > Dockerfile
 
 test_root_url_hostname="yourapp_dot_com"
 
-docker build -t "${base_app_image_name}" .
+echo "  => Building Meteor ${meteor_version:-}"
+docker build -t "${base_app_image_name}" . 2>&1 > /dev/null
 docker run -d \
     --name "${base_app_name}" \
     -e ROOT_URL=http://$test_root_url_hostname \

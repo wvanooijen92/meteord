@@ -13,10 +13,12 @@ clean() {
   rm -rf "${base_app_name}" || true
 }
 
-trap "echo Failed: Bundle local mount && exit 1" EXIT
+trap "echo Failed: Meteor Bundle Locally Mounted && exit 1" EXIT
 
 cd /tmp
 clean
+
+echo "=> Testing Meteor Bundle Locally Mounted"
 
 meteor create "${base_app_name}" 2>&1 > /dev/null
 cd "${base_app_name}"
@@ -24,7 +26,10 @@ add_watch_token
 add_binary_dependency
 
 test_root_url_hostname="localmount_app"
-meteor build --architecture=os.linux.x86_64 "../${base_app_name}-bundle"
+meteor build \
+  --architecture=os.linux.x86_64 \
+  "../${base_app_name}-bundle" \
+  2>&1 > /dev/null
 docker run -d \
     --name "${base_app_name}" \
     -e ROOT_URL=http://$test_root_url_hostname \

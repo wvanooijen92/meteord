@@ -11,9 +11,11 @@ clean() {
   docker rm -f "${base_app_name}" 2> /dev/null || true
 }
 
-trap "echo Failed: Phantomjs Check && exit 1" EXIT
+trap "echo Failed: PhantomJS Support && exit 1" EXIT
 
 clean
+
+echo "=> Testing PhantomJS Support"
 
 docker run  \
     --name "${base_app_name}" \

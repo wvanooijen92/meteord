@@ -11,10 +11,12 @@ clean() {
   docker rm -f "${base_app_name}" 2> /dev/null || true
 }
 
-trap "echo Failed: To check whether actual meteor bundle exists or not && exit 1" EXIT
+trap "echo Failed: Missing Bundle Scenario && exit 1" EXIT
 
 cd /tmp
 clean
+
+echo "=> Testing Missing Bundle Scenario"
 
 docker run -d \
     --name "${base_app_name}" \
