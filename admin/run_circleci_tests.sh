@@ -33,23 +33,21 @@ if [ -z "${our_work}" ]; then
   exit 0
 fi
 
-(
-  set -e
+set -e
 
-  TEST_BUILD=true . ${my_dir}/build_it.sh
+TEST_BUILD=true . ${my_dir}/build_it.sh
 
-  # Print a list of what we've done.
-  echo "=== Built Image Names ==="
-  echo "base: ${DOCKER_IMAGE_NAME_BASE}"
-  echo "builddeps: ${DOCKER_IMAGE_NAME_BUILDDEPS}"
-  echo "onbuild: ${DOCKER_IMAGE_NAME_ONBUILD}"
+# Print a list of what we've done.
+echo "============= Built Images ============="
+echo "  base: ${DOCKER_IMAGE_NAME_BASE}"
+echo "  builddeps: ${DOCKER_IMAGE_NAME_BUILDDEPS}"
+echo "  onbuild: ${DOCKER_IMAGE_NAME_ONBUILD}"
 
-  # Export them so they're available to the build scripts.
-  export DOCKER_IMAGE_NAME_BASE
-  export DOCKER_IMAGE_NAME_BUILDDEPS
-  export DOCKER_IMAGE_NAME_ONBUILD
-  echo "${our_work}" | tr '\n' '\0' | xargs -n1 -0 -I% -t sh -c "% && echo Test exited: \$?"
-  echo " => Test runner exit code is $?"
+# Export them so they're available to the build scripts.
+export DOCKER_IMAGE_NAME_BASE
+export DOCKER_IMAGE_NAME_BUILDDEPS
+export DOCKER_IMAGE_NAME_ONBUILD
+echo "${our_work}" | tr '\n' '\0' | xargs -n1 -0 -I% -t sh -c "% && echo Test exited: \$?"
+echo " => Test runner exit code is $?"
 
-  set +e
-)
+set +e
