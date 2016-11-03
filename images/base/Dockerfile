@@ -26,9 +26,11 @@ RUN ["npm", "install", "--global", "npm@3"]
 RUN lib/cleanup.sh
 
 # The preferred port to use is port 3000.
-EXPOSE 3000
+ENV PORT ${PORT:-3000}
+EXPOSE $ENV
 
 # For legacy MUP support, port 80 is also exposed.
+# If you don't want to use it, don't add a --port for it at runtime.
 EXPOSE 80
 
 ENTRYPOINT ./run_app.sh
