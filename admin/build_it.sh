@@ -9,7 +9,7 @@ set -e
 name_base="${IMAGE_NAME}:node-${NODE_VERSION}"
 
 if ! [ -z "$TEST_BUILD" ]; then
-  test_build_hash="-$(date | (md5sum || md5) | head -c10)"
+  test_build_hash="-$(head -c 100 /dev/urandom | (md5sum || md5) | head -c10)"
 else
   test_build_hash=""
 fi
