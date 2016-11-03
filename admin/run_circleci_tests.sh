@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 : ${NODE_VERSION?"must be set."}
 
@@ -38,6 +38,7 @@ on_test_error () {
   exit 1
 }
 
+# Bash-ism.
 trap 'on_test_error' ERR
 
 TEST_BUILD=true . ${my_dir}/build_it.sh
