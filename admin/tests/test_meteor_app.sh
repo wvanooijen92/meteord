@@ -8,8 +8,8 @@ check_images_set
 base_app_name="spaceglue-test-app"
 
 clean() {
-  # docker rm -f "${base_app_name}" 2> /dev/null || true
-  # docker rmi -f "${base_app_image_name}" 2> /dev/null || true
+  docker rm -f "${base_app_name}" 2> /dev/null || true
+  docker rmi -f "${base_app_image_name}" 2> /dev/null || true
   rm -rf "${base_app_name}" || true
 }
 
