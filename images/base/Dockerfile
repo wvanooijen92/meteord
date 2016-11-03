@@ -26,7 +26,7 @@ RUN ["npm", "install", "--global", "npm@3"]
 RUN lib/cleanup.sh
 
 # The preferred port to use is port 3000.
-EXPOSE 3000
+EXPOSE ${PORT:-3000}
 
 # For legacy MUP support, port 80 is also exposed.
 EXPOSE 80
