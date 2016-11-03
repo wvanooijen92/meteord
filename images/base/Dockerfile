@@ -27,7 +27,7 @@ RUN lib/cleanup.sh
 
 # The preferred port to use is port 3000.
 ENV PORT ${PORT:-3000}
-EXPOSE $ENV
+EXPOSE $PORT
 
 # For legacy MUP support, port 80 is also exposed.
 # If you don't want to use it, don't add a --port for it at runtime.
