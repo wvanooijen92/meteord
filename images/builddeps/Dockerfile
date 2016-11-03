@@ -11,6 +11,3 @@ RUN apt-get update && apt-get -f install -y && apt-get install -y --no-install-r
   && rm -rf /var/lib/apt/lists/*
 
 RUN ["npm", "install", "--global", "node-gyp"]
-
-EXPOSE 80
-ENTRYPOINT ./run_app.sh
