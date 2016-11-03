@@ -38,7 +38,13 @@ fi
 
   TEST_BUILD=true . ${my_dir}/build_it.sh
 
-  # We should now have access to these vars, let's share them.
+  # Print a list of what we've done.
+  echo "=== Built Image Names ==="
+  echo "base: ${DOCKER_IMAGE_NAME_BASE}"
+  echo "builddeps: ${DOCKER_IMAGE_NAME_BUILDDEPS}"
+  echo "onbuild: ${DOCKER_IMAGE_NAME_ONBUILD}"
+
+  # Export them so they're available to the build scripts.
   export DOCKER_IMAGE_NAME_BASE
   export DOCKER_IMAGE_NAME_BUILDDEPS
   export DOCKER_IMAGE_NAME_ONBUILD
