@@ -44,12 +44,14 @@ EXPOSE 80
 # We do this now to create the home directory.
 RUN groupadd -r node && useradd -r -g node node
 
-USER node
-
 # Do the rest in the 'node' user home directory.
 WORKDIR /home/node
 ONBUILD WORKDIR /home/node
-
 COPY scripts .
+
+# Set permissions before we leave.
+RUN chown -R node:node /home/node/
+
+USER node
 
 ENTRYPOINT ./run_app.sh

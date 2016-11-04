@@ -16,7 +16,7 @@ build_dir=$HOME/.build
 # sometimes, directly copied folder cause some weird issues
 # this fixes that
 echo "=> Copying the app"
-cp -R /app $copied_app_path
+cp -R $HOME/app $copied_app_path
 cd $copied_app_path
 
 # Function which makes a Meteor version number comparable.
