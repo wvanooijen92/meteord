@@ -28,9 +28,9 @@ RUN ["npm", "install", "--global", "npm@3"]
 
 RUN lib/cleanup.sh
 
-# The preferred port to use is port 3000.
-ENV PORT ${PORT:-3000}
-EXPOSE $PORT
+# The actual server will not run on port 80, it will run on 3000.
+# No, you can't change this easily. YAGNI.  Just --port YOURPORT:3000
+EXPOSE 3000
 
 RUN groupadd -r node && useradd -r -g node node
 USER node
