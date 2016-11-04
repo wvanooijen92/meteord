@@ -10,8 +10,8 @@ export METEOR_NO_RELEASE_CHECK=1
 : ${METEOR_WAREHOUSE_URLBASE:="https://d3fm2vapipm3k9.cloudfront.net"}
 export METEOR_WAREHOUSE_URLBASE
 
-copied_app_path=/copied-app
-bundle_dir=/tmp/bundle-dir
+copied_app_path=$HOME/copied-app
+build_dir=$HOME/.build
 
 # sometimes, directly copied folder cause some weird issues
 # this fixes that
@@ -109,20 +109,20 @@ echo "=> Executing Meteor Build..."
 
 meteor build \
   ${unsafe_perm_flag} \
-  --directory $bundle_dir
+  --directory $build_dir
 
 echo "=> Executing NPM install within Bundle"
-(cd ${bundle_dir}/bundle/programs/server/ && npm install --unsafe-perm)
+(cd ${build_dir}/bundle/programs/server/ && npm install --unsafe-perm)
 
 echo "=> Moving bundle"
-mv ${bundle_dir}/bundle /built_app
+mv ${build_dir}/bundle $HOME/built_app
 
 echo "=> Cleaning up"
 # cleanup
 echo " => copied_app_path"
 rm -rf $copied_app_path
-echo " => bundle_dir"
-rm -rf ${bundle_dir}
+echo " => build_dir"
+rm -rf ${build_dir}
 echo " => .meteor"
 rm -rf ~/.meteor
 rm /usr/local/bin/meteor

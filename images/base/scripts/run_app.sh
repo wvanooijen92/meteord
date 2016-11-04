@@ -15,6 +15,8 @@ elif [ -n "$BUNDLE_URL" ]; then
   cd bundle/
 elif [ -d /built_app ]; then
   cd /built_app
+elif [ -d $HOME/built_app ]; then
+  cd $HOME/built_app
 else
   echo "=> You don't have an meteor app to run in this image."
   exit 1
