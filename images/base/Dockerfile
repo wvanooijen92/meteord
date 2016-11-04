@@ -29,8 +29,4 @@ RUN lib/cleanup.sh
 ENV PORT ${PORT:-3000}
 EXPOSE $PORT
 
-# For legacy MUP support, port 80 is also exposed.
-# If you don't want to use it, don't add a --port for it at runtime.
-EXPOSE 80
-
 ENTRYPOINT ./run_app.sh
