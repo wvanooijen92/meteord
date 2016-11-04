@@ -29,14 +29,10 @@ RUN ["npm", "install", "--global", "npm@3"]
 
 RUN lib/cleanup.sh
 
-# The actual server will not run on port 80, it will run on 3000.
-# No, you can't change this easily. YAGNI.  Just --port YOURPORT:3000
-EXPOSE 3000
-
-# For legacy reasons only, we will redirect port 80 to 3000 in the kernel.
+# For legacy reasons only, we run on port 80
 # This allows Meteor Up to keep doing --port THEIRPORT:80, which is hard-coded
-# by many implementations.  The actual server will run unprivileged on 3000.
-RUN iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000
+# by many implementations.  The actual server will run unprivileged though,
+# thanks to dockers default run cap of NET_BIND_SERVICE=true
 EXPOSE 80
 
 RUN groupadd -r node && useradd -r -g node node
