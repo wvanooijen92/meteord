@@ -52,6 +52,7 @@ build_image_derivative () {
 
 DOCKER_IMAGE_NAME_BASE="${name_base}${test_build_hash}"
 docker build \
+    --no-cache \
     -t "${DOCKER_IMAGE_NAME_BASE}" \
     ${root_dir}/images/base
 
