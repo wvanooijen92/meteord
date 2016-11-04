@@ -29,4 +29,6 @@ RUN lib/cleanup.sh
 ENV PORT ${PORT:-3000}
 EXPOSE $PORT
 
+RUN groupadd -r node && useradd -r -g node node
+USER node
 ENTRYPOINT ./run_app.sh
