@@ -77,7 +77,8 @@ if true; then
 fi
 
 # Useful for various hot-patches/optimizations
-meteor_bin_symlink="$(readlink "$HOME/.meteor/meteor")"
+meteor_bin="$HOME/.meteor/meteor"
+meteor_bin_symlink="$(readlink $meteor_bin)"
 meteor_tool_dir="$(dirname "${meteor_bin_symlink}")"
 
 ## For future use:
@@ -103,11 +104,11 @@ meteor_version_app=$(cat .meteor/release)
 echo "  > ${meteor_version_app}"
 
 echo "=> Executing NPM install --production"
-meteor npm install --production 2>&1 > /dev/null
+$meteor_bin npm install --production 2>&1 > /dev/null
 
 echo "=> Executing Meteor Build..."
 
-meteor build \
+$meteor_bin build \
   ${unsafe_perm_flag} \
   --directory $build_dir
 
@@ -125,6 +126,5 @@ echo " => build_dir"
 rm -rf ${build_dir}
 echo " => .meteor"
 rm -rf ~/.meteor
-rm /usr/local/bin/meteor
 
 set +e
