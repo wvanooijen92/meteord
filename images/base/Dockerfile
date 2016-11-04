@@ -22,9 +22,6 @@ RUN apt-get update && apt-get -f install -y && apt-get install -y \
     iptables \
   && rm -rf /var/lib/apt/lists/*
 
-# Allow Node to bind to ports less than 1024 as unprivileged user.
-RUN ["setcap", "cap_net_bind_service=+ep", "/usr/bin/nodejs"]
-
 RUN ["npm", "install", "--global", "npm@3"]
 
 RUN lib/cleanup.sh
