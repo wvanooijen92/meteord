@@ -87,7 +87,7 @@ meteor_tool_dir="$(dirname "${meteor_bin_symlink}")"
 #ln $LAUNCHER -sf /usr/local/bin/meteor
 
 unsafe_perm_flag=""
-if [ $(cver "${METEOR_RELEASE}") -eq $(cver "1.4.2") ]; then
+if [ "$EUID" -eq 0 ] && $(cver "${METEOR_RELEASE}") -eq $(cver "1.4.2") ]; then
   # If the primary release requires the --unsafe-perm flag, let's pass it.
   unsafe_perm_flag="--unsafe-perm"
 
