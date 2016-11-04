@@ -18,7 +18,8 @@ ADD "${NODESOURCE_BASEURL}${NODESOURCE_BASEPATH}${NODESOURCE_DEB_PATH}" node.deb
 
 RUN (dpkg -i node.deb 2> /dev/null || true) && rm node.deb
 
-RUN apt-get update && apt-get -f install -y \
+RUN apt-get update && apt-get -f install -y && apt-get install -y \
+    iptables \
   && rm -rf /var/lib/apt/lists/*
 
 # Allow Node to bind to ports less than 1024 as unprivileged user.
@@ -31,6 +32,12 @@ RUN lib/cleanup.sh
 # The actual server will not run on port 80, it will run on 3000.
 # No, you can't change this easily. YAGNI.  Just --port YOURPORT:3000
 EXPOSE 3000
+
+# For legacy reasons only, we will redirect port 80 to 3000 in the kernel.
+# This allows Meteor Up to keep doing --port THEIRPORT:80, which is hard-coded
+# by many implementations.  The actual server will run unprivileged on 3000.
+RUN iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000
+EXPOSE 80
 
 RUN groupadd -r node && useradd -r -g node node
 USER node
