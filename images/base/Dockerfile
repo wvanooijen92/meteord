@@ -21,6 +21,9 @@ RUN (dpkg -i node.deb 2> /dev/null || true) && rm node.deb
 RUN apt-get update && apt-get -f install -y \
   && rm -rf /var/lib/apt/lists/*
 
+# Allow Node to bind to ports less than 1024 as unprivileged user.
+RUN ["setcap", "cap_net_bind_service=+ep", "/usr/bin/nodejs"]
+
 RUN ["npm", "install", "--global", "npm@3"]
 
 RUN lib/cleanup.sh
