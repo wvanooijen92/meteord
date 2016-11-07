@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+set -x
 my_dir=`dirname $0`
 . ${my_dir}/lib.sh
 
@@ -42,7 +43,6 @@ docker_run_test () {
       "${DOCKER_IMAGE_NAME_BUILDDEPS}"
 
   watch_docker_logs_for_token "${base_app_name}"
-  sleep 1
   ! docker_logs_has "${base_app_name}" "you are using a pure-JavaScript"
   docker_logs_has_bcrypt_token "${base_app_name}"
   check_server_for "63836" "${test_root_url_hostname}"
@@ -61,3 +61,4 @@ trap - EXIT
 clean
 
 set +e
+set +x
