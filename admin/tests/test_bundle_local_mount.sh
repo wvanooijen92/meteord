@@ -1,6 +1,5 @@
 #!/bin/sh
 set -e
-set -x
 my_dir=`dirname $0`
 . ${my_dir}/lib.sh
 
@@ -61,4 +60,3 @@ trap - EXIT
 clean
 
 set +e
-set +x
