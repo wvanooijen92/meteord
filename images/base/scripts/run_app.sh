@@ -7,9 +7,7 @@ path=`pwd`
 if [ -d /bundle ]; then
   echo "=> Found /bundle"
   tar -xvz -C $HOME --no-same-owner --file /bundle/*.tar.gz
-  ls -la $HOME
-  ls -la $HOME/bundle
-  cd $HOME/bundle/bundle
+  cd $HOME/bundle
 elif [ -d $HOME/bundle ]; then
   echo "=> Found $HOME/bundle"
   cd $HOME/bundle
