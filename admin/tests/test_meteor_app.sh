@@ -26,16 +26,9 @@ clean
 if ! [ -z "${meteor_version}" ] && [ -n "${meteor_version}" ]; then
   echo "=> Testing Meteor ${meteor_version:-}"
   release_argument="--release ${meteor_version}"
-  if [ "$EUID" -eq 0 ] && \
-    [ $(cver "${meteor_version}") -eq $(cver "1.4.2") ]; then
-    unsafe_perm_flag="--unsafe-perm"
-  else
-    unsafe_perm_flag=""
-  fi
 else
   echo "=> Testing 'recommended' (default) Meteor version"
   release_argument=""
-  unsafe_perm_flag="--unsafe-perm"
 fi
 
 echo "  => Creating Meteor ${meteor_version:-} App"

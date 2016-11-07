@@ -87,18 +87,6 @@ meteor_tool_dir="$(dirname "${meteor_bin_symlink}")"
 #echo "Making 'meteor' Symlink from ${LAUNCHER}"
 #ln $LAUNCHER -sf /usr/local/bin/meteor
 
-unsafe_perm_flag=""
-if [ "$EUID" -eq 0 ] && $(cver "${METEOR_RELEASE}") -eq $(cver "1.4.2") ]; then
-  # If the primary release requires the --unsafe-perm flag, let's pass it.
-  unsafe_perm_flag="--unsafe-perm"
-
-  echo "=> Hot-Patching 1.4.2 release to not pass --unsafe-perm to springboarded version..."
-  perl -0pi.bak \
-    -e 's/(^\h+var newArgv.*?$)/$1\n\n  newArgv = _.filter(newArgv, function (arg) { return arg !== "--unsafe-perm"; });/ms' \
-    $HOME/.meteor/${meteor_tool_dir}/tools/cli/main.js
-  echo "...done"
-fi
-
 echo "=> App Meteor Version"
 meteor_version_app=$(cat .meteor/release)
 echo "  > ${meteor_version_app}"
@@ -109,7 +97,6 @@ $meteor_bin npm install --production 2>&1 > /dev/null
 echo "=> Executing Meteor Build..."
 
 $meteor_bin build \
-  ${unsafe_perm_flag} \
   --directory $build_dir
 
 echo "=> Executing NPM install within Bundle"
