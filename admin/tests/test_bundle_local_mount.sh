@@ -47,7 +47,7 @@ docker_run_test () {
   check_server_for "63836" "${test_root_url_hostname}"
 
   # Get ready to do it again.
-  docker rm -f "${base_app_name}" 2> /dev/null
+  docker rm -f "${base_app_name}" 2> /dev/null || true
 }
 
 # Test with the bundle mounted at the old /bundle location
