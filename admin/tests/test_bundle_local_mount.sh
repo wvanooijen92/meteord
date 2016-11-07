@@ -53,9 +53,6 @@ docker_run_test () {
 # Test with the bundle mounted at the old /bundle location
 docker_run_test "/bundle"
 
-# And test with the new location as well.
-docker_run_test "/home/node/bundle"
-
 trap - EXIT
 clean
 
