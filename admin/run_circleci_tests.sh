@@ -20,10 +20,10 @@ ${my_dir}/tests/test_no_app.sh
 # Add meteor build versions
 our_scripts="${our_scripts}$( \
   cat ${my_dir}/meteor_versions_to_test | \
-  xargs -n1 -I% sh -c '\
-    echo ${my_dir}/tests/test_meteor_app.sh % &&\
+  xargs -n1 -I% sh -c "\
+    echo ${my_dir}/tests/test_meteor_app.sh % && \
     echo ${my_dir}/tests/test_bundle_web.sh %
-  \'
+  "\
 )"
 
 our_work="$( \
