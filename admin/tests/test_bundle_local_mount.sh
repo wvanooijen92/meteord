@@ -14,7 +14,7 @@ clean() {
   rm -rf "${base_app_name}" || true
 }
 
-trap "echo Failed: Meteor Bundle Locally Mounted && exit 1" EXIT
+trap "docker logs ${base_app_name}; echo Failed: Meteor Bundle Locally Mounted && exit 1" EXIT
 
 cd /tmp
 clean
