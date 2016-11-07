@@ -5,7 +5,14 @@ my_dir=`dirname $0`
 
 check_images_set
 
-base_app_name="spaceglue-test-web"
+meteor_version=$1
+
+if [ -z "${meteor_version}" ]; then
+  echo "Please pass Meteor version number as the first argument."
+  exit 1
+fi
+
+base_app_name="spaceglue-test-web-${meteor_version}"
 
 clean() {
   docker rm -f "${base_app_name}" 2> /dev/null || true
@@ -16,11 +23,12 @@ trap "echo Failed: Meteor Bundle from Web && exit 1" EXIT
 cd /tmp
 clean
 
-echo "=> Testing Meteor Bundle from Web (1.4.1.3)"
+echo "=> Testing Meteor Bundle from Web (${meteor_version})"
 
 test_root_url_hostname="web_app"
+s3_uri_base="https://${s3_bucket_name}.s3-${s3_bucket_region}.amazonaws.com"
 
-export BUNDLE_URL=https://abernix-meteord-tests.s3-us-west-2.amazonaws.com/meteor-1.4.1.3.tar.gz
+export BUNDLE_URL="${s3_uri_base}/meteor-${meteor_version}.tar.gz"
 
 docker run -d \
     --name "${base_app_name}" \

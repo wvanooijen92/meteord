@@ -5,18 +5,27 @@ my_dir=`dirname $0`
 path=`pwd`
 
 if [ -d /bundle ]; then
+  echo "=> Found /bundle"
   cd /bundle
-  tar -xz --no-same-owner --file *.tar.gz
+  tar -xvz --no-same-owner --file /bundle/*.tar.gz
+  cd bundle/
+elif [ -d $HOME/bundle ]; then
+  echo "=> Found $HOME/bundle"
+  cd /$HOME/bundle
+  tar -xvz --no-same-owner --file $HOME/bundle/*.tar.gz
   cd bundle/
 elif [ -n "$BUNDLE_URL" ]; then
-  cd /tmp
+  echo "=> BUNDLE_URL is set"
+  cd $HOME/
   curl -L -o bundle.tar.gz $BUNDLE_URL
   tar -xz --no-same-owner --file bundle.tar.gz
   cd bundle/
-elif [ -d /built_app ]; then
-  cd /built_app
 elif [ -d $HOME/built_app ]; then
+  echo "=> Found $HOME/built_app"
   cd $HOME/built_app
+elif [ -d /built_app ]; then
+  echo "=> Found /built_app"
+  cd /built_app
 else
   echo "=> You don't have an meteor app to run in this image."
   exit 1
