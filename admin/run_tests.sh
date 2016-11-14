@@ -54,13 +54,6 @@ echo "  base: ${DOCKER_IMAGE_NAME_BASE}"
 echo "  builddeps: ${DOCKER_IMAGE_NAME_BUILDDEPS}"
 echo "  onbuild: ${DOCKER_IMAGE_NAME_ONBUILD}"
 
-if [ -d "${CIRCLE_ARTIFACTS}" ]; then
-  image_list_file=`mktemp -p ${CIRCLE_ARTIFACTS} -t images.XXXXXXXXXX`
-  echo "${DOCKER_IMAGE_NAME_BASE}" > $image_list_file
-  echo "${DOCKER_IMAGE_NAME_BUILDDEPS}" >> $image_list_file
-  echo "${DOCKER_IMAGE_NAME_ONBUILD}" >> $image_list_file
-fi
-
 # Export them so they're available to the build scripts.
 export DOCKER_IMAGE_NAME_BASE
 export DOCKER_IMAGE_NAME_BUILDDEPS

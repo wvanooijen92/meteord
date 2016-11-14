@@ -25,9 +25,13 @@ deployment:
   docker:
     branch: v2-flat
     commands:
-      - ls -la $CIRCLE_ARTIFACTS
-      - tail -n +1 $CIRCLE_ARTIFACTS/images*
-      - export
+      - test -f $CIRCLE_ARTIFACTS/images
+      - >
+        cat $CIRCLE_ARTIFACTS/images |
+        xargs -t -n2 docker tag
+      - >
+        cat $CIRCLE_ARTIFACTS/images |
+        awk '{print $NF}' |
+        xargs -t -n1 echo docker push
       - docker images
-      - docker ps -a
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
