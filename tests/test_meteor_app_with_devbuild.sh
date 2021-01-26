@@ -15,7 +15,7 @@ clean
 
 meteor create --release 1.12 hello
 cd hello
-echo "FROM abernix/meteord:node-${NODE_VERSION}-devbuild" > Dockerfile
+echo "FROM wvanooijen92/meteord:node-${NODE_VERSION}-devbuild" > Dockerfile
 
 docker build -t meteor-app-image ./
 docker run -d \
