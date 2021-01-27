@@ -15,7 +15,7 @@ docker run -d \
     --name no_app \
     -e ROOT_URL=http://no_app \
     -p 9090:80 \
-    "wvanooijen92/meteord:node-${NODE_VERSION}-base"
+    "abernix/meteord:node-${NODE_VERSION}-base"
 
 sleep 10
 

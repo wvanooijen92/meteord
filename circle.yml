@@ -35,7 +35,7 @@ deployment:
           binbuild
         "
         NODE_MAJOR="$(echo $NODE_VERSION | cut -d '.' -f1)"
-        DOCKER_HUB_REPO="wvanooijen92/meteord"
+        DOCKER_HUB_REPO="abernix/meteord"
         BASE_IMAGE_NAME="${DOCKER_HUB_REPO}:node-"
         IMAGE_NAME_VERSION="${BASE_IMAGE_NAME}${NODE_VERSION}"
         IMAGE_NAME_MAJOR="${BASE_IMAGE_NAME}${NODE_MAJOR}"
