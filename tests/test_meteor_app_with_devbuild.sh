@@ -6,6 +6,7 @@ set -x
 
 function clean() {
   docker rm -f meteor-app
+  docker rm -f mongo
   docker rmi -f meteor-app-image
   rm -rf hello
 }
