@@ -22,7 +22,7 @@ docker run -d \
     -e ROOT_URL=http://yourapp_dot_com \
     -v /tmp/hello/:/bundle \
     -p 8080:80 \
-    abernix/meteord:base
+    wvanooijen92/meteord:base
 
 sleep 50
 
