@@ -29,6 +29,7 @@ docker run -d \
     --name meteor-app \
     -e MONGO_URL=mongodb://localhost:27017/ \
     -e ROOT_URL=http://yourapp_dot_com \
+    --network=host \
     -v /tmp/hello/:/bundle \
     -p 8080:80 \
     wvanooijen92/meteord:base
